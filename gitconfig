@@ -1,7 +1,7 @@
 [color]
 	ui = true
 [user]
-	email = ian@codeguy.io
+	email = ian.fosbery@reaktor.com
 	name = Ian Fosbery
 [core]
 	editor = vim
@@ -9,12 +9,6 @@
 	excludesfile = /Users/ian/.gitignore
 [push]
 	default = simple
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [alias]
 	co = checkout
 	st = status
