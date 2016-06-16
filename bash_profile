@@ -3,10 +3,9 @@ export "PATH=/usr/local/bin:/usr/local/sbin:$PATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 
 ### Import aliases
-source .aliases.local
-
-## FUNCTIONS/SHORTCUTS ##
-function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+source $HOME/.aliases.local
+### Import functions
+source $HOME/.functions.local
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 	. $(brew --prefix)/etc/bash_completion

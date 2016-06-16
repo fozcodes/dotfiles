@@ -1,0 +1,5 @@
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+function npms () { npm install --save "$@"; }
+function npmsd () { npm install --save-dev "$@"; }
+

@@ -165,4 +165,8 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 autocmd FileType haskell,rust setlocal nospell
 
 " -------------------- END FORMATTING -------------------
+" -------------------- AUTOCLOSE NOT WORKING  -------------------
 
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap (<CR> (<CR>)<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
