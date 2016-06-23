@@ -7,6 +7,9 @@ source $HOME/.aliases.local
 ### Import functions
 source $HOME/.functions.local
 
+### Enable git completions
+source ~/.git-completion.bash
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
 	. $(brew --prefix)/etc/bash_completion
 fi
