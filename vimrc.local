@@ -4,7 +4,7 @@ hi IndentGuidesOdd  guibg=black   ctermbg=3
 hi IndentGuidesEven guibg=black   ctermbg=4
 set nospell
 autocmd BufRead,BufNewFile *.md setlocal spell
-highlight OverLength ctermbg=17 ctermfg=white guibg=#592929
+highlight OverLength ctermbg=17 ctermfg=white guibg=#CCCCCC
 match OverLength /\%81v.\+/
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
@@ -164,9 +164,14 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 " Workaround broken colour highlighting in Haskell
 autocmd FileType haskell,rust setlocal nospell
 
+"Wrap for Markdown files
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
 " -------------------- END FORMATTING -------------------
 " -------------------- AUTOCLOSE NOT WORKING  -------------------
 
 inoremap {<CR> {<CR>}<C-o>==<C-o>O
 inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
+
+" -------------------- END AUTOCLOSE -------------------
