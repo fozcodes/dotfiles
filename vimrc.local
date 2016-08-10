@@ -42,9 +42,6 @@ if has('clipboard')
   endif
 endif
 
-" Switch to current DIR when buffer opens
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-
 "set autowrite                       " Automatically write a file when leaving a modified buffer
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
@@ -134,16 +131,18 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic white
 " ------------------ Formatting --------------------
 
 set nowrap                      " Do not wrap long lines
-set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=2                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=2                   " An indentation every four columns
+set shiftwidth=2                " Use indents of 4 spaces
 set softtabstop=2               " Let backspace delete indent
+set autoindent                  " Indent at the same level of the previous line
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
 "set matchpairs+=<:>             " Match, to be used with %
 set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+" helper for indent mistake
+set list listchars=tab:»·,trail:·
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 " Remove trailing whitespaces and ^M chars
 " To disable the stripping of whitespace, add the following to your
@@ -167,6 +166,13 @@ autocmd FileType haskell,rust setlocal nospell
 "Wrap for Markdown files
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
+if did_filetype()
+    finish
+endif
+if getline(1) =~# '^#!.*/bin/env\s\+[babel\-]?node\>'
+    setfiletype javascript
+endif
+
 " -------------------- END FORMATTING -------------------
 " -------------------- AUTOCLOSE NOT WORKING  -------------------
 
@@ -175,3 +181,6 @@ inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
 
 " -------------------- END AUTOCLOSE -------------------
+" -------------------- TAGS -------------------
+command! MakeTags !ctags -R .
+set tags=tags;/
