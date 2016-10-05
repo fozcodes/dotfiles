@@ -6,7 +6,8 @@
 [core]
   editor = vim
   autocrlf = input
-  excludesfile = /Users/ian/.gitignore
+	excludesfile = /Users/foz/.gitignore
+	ignorecase = false
 [push]
   default = simple
 [alias]
@@ -14,6 +15,7 @@
   st = status
   br = branch
   branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit
 [commit]
 [heroku]
   account = nmrkt

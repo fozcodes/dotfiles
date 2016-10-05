@@ -2,3 +2,5 @@
 *.DS\_Store
 *~
 *tags
+.tool-versions*
+.elasticbeanstalk/
