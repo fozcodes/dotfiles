@@ -148,9 +148,9 @@ set list listchars=tab:»·,trail:·
 " To disable the stripping of whitespace, add the following to your
 " .vimrc.before.local file:
 "   let g:spf13_keep_trailing_whitespace = 1
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,ruby,elixir,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:spf13_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd FileType haskell,puppet,ruby,yml,javascript setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType haskell,puppet,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
 
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
@@ -186,3 +186,8 @@ inoremap [<CR> [<CR>]<C-o>==<C-o>O
 " -------------------- TAGS -------------------
 command! MakeTags !ctags -R .
 set tags=tags;/
+
+" -------------------- END TAGS -------------------
+" -------------------- CUSTOM FUNCTIONS -------------------
+nnoremap ,exdoc :-1read $HOME/.vim.snippets/.docblock.ex<CR>j
+
