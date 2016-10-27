@@ -4,8 +4,8 @@ hi IndentGuidesOdd  guibg=black   ctermbg=3
 hi IndentGuidesEven guibg=black   ctermbg=4
 set nospell
 autocmd BufRead,BufNewFile *.md setlocal spell
-highlight OverLength ctermbg=17 ctermfg=white guibg=#CCCCCC
-match OverLength /\%81v.\+/
+highlight ColorColumn ctermbg=17 ctermfg=white guibg=#CCCCCC
+set colorcolumn=80
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
 let g:rubycomplete_buffer_loading = 1
