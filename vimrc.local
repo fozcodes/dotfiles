@@ -189,5 +189,5 @@ set tags=tags;/
 
 " -------------------- END TAGS -------------------
 " -------------------- CUSTOM FUNCTIONS -------------------
-nnoremap ,exdoc :-1read $HOME/.vim.snippets/.docblock.ex<CR>j
+nnoremap ,exdoc :-1read $HOME/.vim.snippets/docblock.ex<CR>j
 
