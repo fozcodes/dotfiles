@@ -62,7 +62,6 @@ Plugin 'scrooloose/syntastic'
 Plugin 'Shougo/neocomplete.vim.git'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
-Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-repeat'
@@ -227,11 +226,12 @@ let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 
-" use honza's snippets.
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
+let g:neosnippet#enable_word_expand = 1
 " enable neosnippet snipmate compatibility mode
 let g:neosnippet#enable_snipmate_compatibility = 1
+
+" set snippet dirs
+let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim.snippets'
 
 " for snippet_complete marker.
 if has('conceal')
