@@ -1,6 +1,7 @@
 set nocompatible
 filetype off
-
+set exrc
+set secure
 " http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name/9528322#9528322
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.
