@@ -1,255 +1,76 @@
+" Setup {{{
 set nocompatible
 filetype off
-set exrc
-set secure
-" http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name/9528322#9528322
-" Save your backups to a less annoying place than the current directory.
-" If you have .vim-backup in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/backup or . if all else fails.
-if isdirectory($HOME . '/.vim/backup') == 0
-  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
-endif
-set backupdir-=.
-set backupdir+=.
-set backupdir-=~/
-set backupdir^=~/.vim/backup/
-set backupdir^=./.vim-backup/
-set backup
-
-" Save your swp files to a less annoying place than the current directory.
-" If you have .vim-swap in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
-if isdirectory($HOME . '/.vim/swap') == 0
-  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
-endif
-set directory=./.vim-swap//
-set directory+=~/.vim/swap//
-set directory+=~/tmp//
-set directory+=.
-
-" viminfo stores the the state of your previous editing session
-set viminfo+=n~/.vim/viminfo
-
-if exists("+undofile")
-  " undofile - This allows you to use undos after exiting and restarting
-  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
-  " :help undo-persistence
-  " This is only present in 7.3+
-  if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-  endif
-  set undodir=./.vim-undo//
-  set undodir+=~/.vim/undo//
-  set undofile
-endif
-
+set encoding=utf-8
+set title                   " Put title in terminal window 
+" }}}
+" Plugins {{{
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'AutoClose'
+Plugin 'Shougo/neocomplete.vim.git'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'elzr/vim-json'
 Plugin 'isRuslan/vim-es6'
 Plugin 'mbbill/undotree'
 Plugin 'roman/golden-ratio'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/neocomplete.vim.git'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-Plugin 'tpope/vim-markdown'
-Plugin 'tpope/vim-obsession'
-Plugin 'tpope/vim-rails'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
+call vundle#end()
+" }}}
+" Misc {{{
+set ttyfast                     " faster redraw
+set backspace=indent,eol,start
+" }}}
+" Mouse Shit {{{
+set mouse=a                 " Automatically enable mouse usage
+set mousehide               " Hide the mouse cursor while typing<Paste>
+" }}}
+" Tab and Space Shit {{{
+" Set tabs to be not stupid "
+set tabstop=2
+set softtabstop=2
+set expandtab
+set shiftwidth=2
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-
-if filereadable(glob("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
-
-for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
-  exe 'source' f
-endfor
-
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|\~$'
-
-
-" --------------- NERDtree has to be in .vimrc too....? -------
-let g:NERDShutUp=1
-nnoremap <C-e> :NERDTreeToggle<CR>
-map <leader>e :NERDTreeFind<CR>
-nmap <leader>nt :NERDTreeFind<CR>
-
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
-
-" --------------- NEOCOMPLETE - has to be IN .vimrc...? (angry face)------
-let g:neocomplete#enable_at_startup = 1
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-        \if &omnifunc == "" |
-        \setlocal omnifunc=syntaxcomplete#Complete |
-        \endif
-endif
-
-" Some convenient mappings
-inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-" Automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menu,preview,longest
-
-let g:acp_enableatstartup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#enable_auto_delimiter = 1
-let g:neocomplete#max_list = 15
-let g:neocomplete#force_overwrite_completefunc = 1
-
-" define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-      \ 'default' : '',
-      \ 'vimshell' : $home.'/.vimshell_hist',
-      \ 'scheme' : $home.'/.gosh_completions'
-      \ }
-
-" define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-  let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" these two lines conflict with the default digraph mapping of <c-k>
-imap <c-k> <plug>(neosnippet_expand_or_jump)
-smap <c-k> <plug>(neosnippet_expand_or_jump)
-
-inoremap <cr> <cr>
-" <esc> takes you out of insert mode
-inoremap <expr> <esc>   pumvisible() ? "\<c-y>\<esc>" : "\<esc>"
-" <cr> accepts first, then sends the <cr>
-inoremap <expr> <cr>    pumvisible() ? "\<c-y>\<cr>" : "\<cr>"
-" <down> and <up> cycle like <tab> and <s-tab>
-inoremap <expr> <down>  pumvisible() ? "\<c-n>" : "\<down>"
-inoremap <expr> <up>    pumvisible() ? "\<c-p>" : "\<up>"
-" jump up and down the list
-inoremap <expr> <c-d>   pumvisible() ? "\<pagedown>\<c-p>\<c-n>" : "\<c-d>"
-inoremap <expr> <c-u>   pumvisible() ? "\<pageup>\<c-p>\<c-n>" : "\<c-u>"
-" <c-k> complete snippet
-" <c-k> jump to next snippet point
-imap <silent><expr><c-k> neosnippet#expandable() ?
-      \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-      \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
-smap <tab> <right><plug>(neosnippet_jump_or_expand)
-
-inoremap <expr><c-g> neocomplete#undo_completion()
-inoremap <expr><c-l> neocomplete#complete_common_string()
-"inoremap <expr><cr> neocomplete#complete_common_string()
-
-" <cr>: close popup
-" <s-cr>: close popup and save indent.
-inoremap <expr><s-cr> pumvisible() ? neocomplete#smart_close_popup()."\<cr>" : "\<cr>"
-
-function! CleverCr()
-  if pumvisible()
-    return "\<esc>a"
+set nojoinspaces            " Prevents inserting two spaces after punctuation on a join (J)
+" }}}
+" Leader Shortcuts {{{
+let g:mapleader=','
+noremap <leader>bg :call ToggleBG()<CR>
+nnoremap <leader>rtw :%s/\s\+$//e<CR> 
+inoremap jk <esc>
+" }}}
+" Folding {{{
+set foldenable
+set foldmethod=indent   
+set foldnestmax=10      " 10 nested fold max
+set foldlevelstart=10   " open most folds by default
+" space open/closes folds
+nnoremap <space> za
+" }}} 
+" Custom Functions {{{
+function! ToggleBG()        " Allow to trigger background
+  let s:tbg = &background
+  if s:tbg == "dark"
+    set background=light
   else
-    return "\<Enter>"
+    set background=dark
   endif
 endfunction
 
-" <cr> close popup and save indent or expand snippet
-imap <expr> <CR> CleverCr()
-" <c-h>, <bs>: close popup and delete backword char.
-inoremap <expr><bs> neocomplete#smart_close_popup()."\<c-h>"
-inoremap <expr><c-y> neocomplete#smart_close_popup()
-" <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
-" courtesy of matteo cavalleri
-
-function! Clevertab()
-  if pumvisible()
-    return "\<c-n>"
-  endif
-  let substr = strpart(getline('.'), 0, col('.') - 1)
-  let substr = matchstr(substr, '[^ \t]*$')
-  if strlen(substr) == 0
-    " nothing to match on empty string
-    return "\<tab>"
-  else
-    " existing text matching
-    if neosnippet#expandable_or_jumpable()
-      return "\<plug>(neosnippet_expand_or_jump)"
-    else
-      return neocomplete#start_manual_complete()
-    endif
-  endif
-endfunction
-
-imap <expr> <tab> Clevertab()
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-" enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-
-let g:neosnippet#enable_word_expand = 1
-" enable neosnippet snipmate compatibility mode
-let g:neosnippet#enable_snipmate_compatibility = 1
-
-" set snippet dirs
-let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets,~/.vim.snippets'
-
-" for snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
-endif
-
-" enable neosnippets when using go
-let g:go_snippet_engine = "neosnippet"
-
-" disable the neosnippet preview candidate window
-" when enabled, there can be too much visual noise
-" especially when splits are used.
-set completeopt-=preview
-" -------------- END NEOCOMPLETE --------------------------
-
-" -------------------- Trailing Whitespace --------------
 function! StripTrailingWhitespace()
     " Preparation save last search, and cursor position.
     let _s=@/
@@ -261,4 +82,81 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
+" }}} 
+" Formatting {{{
+set nowrap                      " Do not wrap long lines
+" Remove trailing whitespaces and ^M chars
+autocmd FileType c,cpp,css,java,go,php,javascript,puppet,python,rust,ruby,elixir,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+"autocmd FileType go autocmd BufWritePre <buffer> Fmt
+autocmd FileType haskell,puppet,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
+" preceding line best in a plugin but here for now.
 
+autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+autocmd BufNewFile,BufRead *.scerb set filetype=scss.erb
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+
+" Workaround vim-commentary for Haskell
+autocmd FileType haskell setlocal commentstring=--\ %s
+" Workaround broken colour highlighting in Haskell
+autocmd FileType haskell,rust setlocal nospell
+
+"Wrap for Markdown files
+au BufRead,BufNewFile *.md setlocal textwidth=80
+
+let g:rubycomplete_buffer_loading = 1
+
+if did_filetype()
+    finish
+endif
+if getline(1) =~# '^#!.*/bin/env\s\+[babel\-]?node\>'
+    setfiletype javascript
+endif
+
+let g:jsx_ext_required = 0
+" }}} 
+" Turn off spell check cause I spel gud {{{
+set nospell
+highlight ColorColumn ctermbg=17 ctermfg=white guibg=#CCCCCC
+set colorcolumn=80
+autocmd BufRead,BufNewFile *.md setlocal spell " Except MD files...can't spell
+" }}} 
+" UI Related Shit {{{
+set splitright              " Puts new vsplit windows to the right of the current
+set splitbelow              " Puts new split windows to the bottom of the current
+
+set number                  " Set de nubmers
+set relativenumber          " Set de relnubmers
+set list listchars=tab:»·,trail:·
+
+syntax enable
+filetype plugin indent on   " Automatically detect file types.
+set t_Co=256
+set background=dark         " Assume a dark background
+colorscheme hybrid_reverse
+set cursorline
+let g:airline_theme = "hybrid"
+" }}} 
+" Clipboard stuff {{{
+" ------- Do some stupid shit w/ clipboard that 
+"  ------ I can't live without cause I suck
+if has('clipboard')
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
+" }}}
+" Ctrl P {{{ 
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|\~$'
+" }}}
+
+for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
+  exe 'source' f
+endfor
+
+
+
+set modelines=1
+" vim:foldmethod=marker:foldlevel=0
