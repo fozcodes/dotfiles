@@ -8,6 +8,8 @@ highlight ColorColumn ctermbg=17 ctermfg=white guibg=#CCCCCC
 set colorcolumn=80
 nnoremap <Leader>rtw :%s/\s\+$//e<CR>
 
+inoremap jk <esc>
+
 let g:rubycomplete_buffer_loading = 1
 
 "------ General ----------------------------------------
