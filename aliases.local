@@ -14,3 +14,6 @@ alias rst="touch tmp/restart.txt"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias tl="tmux ls"
 alias psqlapp="'/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql -p5432"
+if type nvim > /dev/null 2>&1; then
+  alias vim='nvim'
+fi
