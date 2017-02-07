@@ -1,6 +1,6 @@
 function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
-function npms () { npm install --save "$@"; }
+function npms () { npm install -SE "$@"; }
 function npmsd () { npm install --save-dev "$@"; }
 
 function mixnew () { mix new "$@" && eval cd "\"\$$#\""; }
