@@ -152,9 +152,9 @@ endif
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|\~$'
 " }}}
 
-for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
-  exe 'source' f
-endfor
+"for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
+  "exe 'source' f
+"endfor
 
 
 
