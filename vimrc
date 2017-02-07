@@ -201,6 +201,5 @@ imap <expr> <CR> CleverCr()
 "endfor
 
 
-
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
