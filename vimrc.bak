@@ -86,20 +86,6 @@ endfor
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|\~$'
 
 
-" --------------- NERDtree has to be in .vimrc too....? -------
-let g:NERDShutUp=1
-nnoremap <C-e> :NERDTreeToggle<CR>
-map <leader>e :NERDTreeFind<CR>
-nmap <leader>nt :NERDTreeFind<CR>
-
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
-let NERDTreeChDirMode=0
-let NERDTreeQuitOnOpen=1
-let NERDTreeMouseMode=2
-let NERDTreeShowHidden=1
-let NERDTreeKeepTreeInNewTab=1
-let g:nerdtree_tabs_open_on_gui_startup=0
 
 " --------------- NEOCOMPLETE - has to be IN .vimrc...? (angry face)------
 let g:neocomplete#enable_at_startup = 1

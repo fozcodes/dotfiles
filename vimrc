@@ -82,6 +82,33 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+function! Clevertab()
+  if pumvisible()
+    return "\<c-n>"
+  endif
+  let substr = strpart(getline('.'), 0, col('.') - 1)
+  let substr = matchstr(substr, '[^ \t]*$')
+  if strlen(substr) == 0
+    " nothing to match on empty string
+    return "\<tab>"
+  else
+    " existing text matching
+    if neosnippet#expandable_or_jumpable()
+      return "\<plug>(neosnippet_expand_or_jump)"
+    else
+      return neocomplete#start_manual_complete()
+    endif
+  endif
+endfunction
+
+function! CleverCr()
+  if pumvisible()
+    return "\<esc>a"
+  else
+    return "\<Enter>"
+  endif
+endfunction
 " }}} 
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
@@ -151,7 +178,24 @@ endif
 " Ctrl P {{{ 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|\~$'
 " }}}
+" NERDtree {{{
+let g:NERDShutUp=1 
+nnoremap <C-e> :NERDTreeToggle<CR>
+map <leader>e :NERDTreeFind<CR>
+nmap <leader>nt :NERDTreeFind<CR>
 
+let NERDTreeShowBookmarks=1
+let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
+let NERDTreeChDirMode=0
+let NERDTreeMouseMode=0
+let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
+" }}}
+" NeoComplete {{{
+imap <expr> <tab> Clevertab()
+" <cr> close popup and save indent or expand snippet
+imap <expr> <CR> CleverCr()
+" }}}
 "for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
   "exe 'source' f
 "endfor
