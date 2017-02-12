@@ -191,9 +191,29 @@ let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 " }}}
 " NeoComplete {{{
+let g:neocomplete#enable_at_startup = 1
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+        \if &omnifunc == "" |
+        \setlocal omnifunc=syntaxcomplete#Complete |
+        \endif
+endif
+
+let g:acp_enableatstartup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_auto_delimiter = 1
+let g:neocomplete#max_list = 15
+let g:neocomplete#force_overwrite_completefunc = 1
+
 imap <expr> <tab> Clevertab()
 " <cr> close popup and save indent or expand snippet
 imap <expr> <CR> CleverCr()
+
+" <c-k> complete snippet
+" <c-k> jump to next snippet point
+imap <silent><expr><c-k> neosnippet#expandable() ?
+      \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
+      \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
 " }}}
 "for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
   "exe 'source' f
