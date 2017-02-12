@@ -43,3 +43,7 @@ end
 function phnew
   mix phoenix.new $argv; and cd $argv
 end
+
+# ASDF
+. $HOME/.asdf/asdf.fish
+. $HOME/.asdf/completions/asdf.fish
