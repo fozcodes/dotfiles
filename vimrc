@@ -215,10 +215,11 @@ imap <silent><expr><c-k> neosnippet#expandable() ?
       \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
       \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
 " }}}
-"for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
-  "exe 'source' f
-"endfor
-
+" Other Plugin Config Imports {{{
+for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
+  exe 'source' f
+endfor
+" }}}
 
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
