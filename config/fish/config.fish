@@ -16,7 +16,7 @@ alias gitcleanbranches="git branch --merged | grep -v master | xargs git branch 
 alias grep="grep --color --exclude=\"*/coverage/*\" --exclude=\"*.git/*\""
 alias mkdir="mkdir -p"
 alias npmi="npm install"
-alias rcup="RCRC=\"~/.dotfiles/.rcrc\" rcup"
+alias rcup="env RCRC=~/.dotfiles/.rcrc rcup"
 alias rst="touch tmp/restart.txt"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias tl="tmux ls"
