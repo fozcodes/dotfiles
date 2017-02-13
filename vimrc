@@ -18,6 +18,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mbbill/undotree'
+Plugin 'neomake/neomake'
 Plugin 'roman/golden-ratio'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree.git'
@@ -27,6 +28,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'tomasr/molokai'
 call vundle#end()
 " }}}
 " Misc {{{
@@ -159,6 +161,7 @@ syntax enable
 filetype plugin indent on   " Automatically detect file types.
 set t_Co=256
 set background=dark         " Assume a dark background
+"colorscheme molokai
 colorscheme hybrid_reverse
 set cursorline
 let g:airline_theme = "hybrid"
@@ -214,6 +217,26 @@ imap <expr> <CR> CleverCr()
 imap <silent><expr><c-k> neosnippet#expandable() ?
       \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
       \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
+" }}}
+" NeoMake {{{
+"let g:neomake_verbose = 3 
+let g:neomake_logfile = $HOME . '/neomake.log'
+augroup localneomake
+  autocmd! BufWritePost * Neomake
+augroup END
+let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_eslint_maker = {
+      \ 'exe': $PWD . '/node_modules/.bin/eslint',
+      \ 'args': ['--no-color'],
+      \ 'errorformat': '%f: line %l, col %c, %m'
+      \ }
+
+let g:neomake_jsx_enabled_makers = ['eslint']
+let g:neomake_jsx_eslint_maker = {
+      \ 'exe': $PWD . '/node_modules/.bin/eslint',
+      \ 'args': ['--no-color'],
+      \ 'errorformat': '%f: line %l, col %c, %m'
+      \ }
 " }}}
 " Other Plugin Config Imports {{{
 for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
