@@ -1,4 +1,5 @@
 " Setup {{{
+set shell=/bin/sh
 set nocompatible
 filetype off
 set encoding=utf-8
@@ -11,13 +12,16 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'AutoClose'
+Plugin 'KeitaNakamura/neodark.vim'
 Plugin 'Shougo/neocomplete.vim.git'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mbbill/undotree'
+Plugin 'mxw/vim-jsx'
 Plugin 'neomake/neomake'
 Plugin 'roman/golden-ratio'
 Plugin 'scrooloose/nerdcommenter'
@@ -163,6 +167,8 @@ set t_Co=256
 set background=dark         " Assume a dark background
 "colorscheme molokai
 colorscheme hybrid_reverse
+"colorscheme neodark
+"colorscheme solarized
 set cursorline
 let g:airline_theme = "hybrid"
 " }}} 
@@ -220,24 +226,27 @@ imap <silent><expr><c-k> neosnippet#expandable() ?
 " }}}
 " NeoMake {{{
 "let g:neomake_verbose = 3 
-let g:neomake_logfile = $HOME . '/neomake.log'
-augroup localneomake
-  autocmd! BufWritePost * Neomake
+"let g:neomake_logfile = $HOME . '/neomake.log'
+augroup localNeoMake
+  autocmd! BufWritePost,BufEnter * Neomake
 augroup END
-let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
+let g:neomake_javascript_flow_exe = $PWD . '/node_modules/.bin/flow'
 let g:neomake_javascript_eslint_maker = {
       \ 'exe': $PWD . '/node_modules/.bin/eslint',
-      \ 'args': ['--no-color'],
-      \ 'errorformat': '%f: line %l, col %c, %m'
+      \ 'args': ['--no-color', '--format', 'compact'],
+      \ 'errorformat': '%f: line %l\, col %c\, %m'
       \ }
-
-let g:neomake_jsx_enabled_makers = ['eslint']
 let g:neomake_jsx_eslint_maker = {
       \ 'exe': $PWD . '/node_modules/.bin/eslint',
-      \ 'args': ['--no-color'],
-      \ 'errorformat': '%f: line %l, col %c, %m'
+      \ 'args': ['--no-color', '--format', 'compact'],
+      \ 'errorformat': '%f: line %l\, col %c\, %m'
       \ }
+
+let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
+let g:neomake_jsx_flow_exe = $PWD . '/node_modules/.bin/flow'
 " }}}
+
 " Other Plugin Config Imports {{{
 for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
   exe 'source' f
