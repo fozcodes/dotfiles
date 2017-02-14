@@ -118,7 +118,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,java,go,php,javascript,puppet,python,rust,ruby,elixir,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,java,go,php,javascript,jsx,puppet,python,rust,ruby,elixir,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -183,8 +183,17 @@ if has('clipboard')
   endif
 endif
 " }}}
+" Autoclose {{{
+" Force newline and put cursor in center
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap (<CR> (<CR>)<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
+" }}}
 " Ctrl P {{{ 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|\~$'
+" }}}
+" EasyMotion {{{
+let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
 " }}}
 " NERDtree {{{
 let g:NERDShutUp=1 
@@ -245,12 +254,6 @@ let g:neomake_jsx_eslint_maker = {
 
 let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
 let g:neomake_jsx_flow_exe = $PWD . '/node_modules/.bin/flow'
-" }}}
-
-" Other Plugin Config Imports {{{
-for f in split(glob('~/.vimrc.plugins.config/*.vim'), '\n')
-  exe 'source' f
-endfor
 " }}}
 
 set modelines=1
