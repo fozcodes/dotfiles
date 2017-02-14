@@ -52,6 +52,10 @@ set shiftwidth=2
 
 set nojoinspaces            " Prevents inserting two spaces after punctuation on a join (J)
 " }}}
+" Commands {{{
+command! MakeTags !ctags -R .
+set tags=tags;/
+" }}}
 " Leader Shortcuts {{{
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
