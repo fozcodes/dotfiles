@@ -4,6 +4,8 @@ set nocompatible
 filetype off
 set encoding=utf-8
 set title                   " Put title in terminal window 
+set exrc
+set secure
 " }}}
 " Plugins {{{
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -22,16 +24,17 @@ Plugin 'ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'mbbill/undotree'
 Plugin 'mxw/vim-jsx'
-Plugin 'neomake/neomake'
 Plugin 'roman/golden-ratio'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
+Plugin 'w0rp/ale'
 Plugin 'tomasr/molokai'
 call vundle#end()
 " }}}
@@ -165,6 +168,8 @@ set number                  " Set de nubmers
 set relativenumber          " Set de relnubmers
 set list listchars=tab:»·,trail:·
 
+set laststatus=2
+
 syntax enable
 filetype plugin indent on   " Automatically detect file types.
 set t_Co=256
@@ -237,28 +242,11 @@ imap <silent><expr><c-k> neosnippet#expandable() ?
       \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
       \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
 " }}}
-" NeoMake {{{
-"let g:neomake_verbose = 3 
-"let g:neomake_logfile = $HOME . '/neomake.log'
-augroup localNeoMake
-  autocmd! BufWritePost,BufEnter * Neomake
-augroup END
-let g:neomake_javascript_enabled_makers = ['eslint', 'flow']
-let g:neomake_javascript_flow_exe = $PWD . '/node_modules/.bin/flow'
-let g:neomake_javascript_eslint_maker = {
-      \ 'exe': $PWD . '/node_modules/.bin/eslint',
-      \ 'args': ['--no-color', '--format', 'compact'],
-      \ 'errorformat': '%f: line %l\, col %c\, %m'
-      \ }
-let g:neomake_jsx_eslint_maker = {
-      \ 'exe': $PWD . '/node_modules/.bin/eslint',
-      \ 'args': ['--no-color', '--format', 'compact'],
-      \ 'errorformat': '%f: line %l\, col %c\, %m'
-      \ }
-
-let g:neomake_jsx_enabled_makers = ['eslint', 'flow']
-let g:neomake_jsx_flow_exe = $PWD . '/node_modules/.bin/flow'
+" Ale {{{
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠'
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
 " }}}
-
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
