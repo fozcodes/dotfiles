@@ -35,6 +35,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'w0rp/ale'
+Plugin 'wesQ3/vim-windowswap'
 Plugin 'tomasr/molokai'
 call vundle#end()
 " }}}
@@ -290,6 +291,12 @@ let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_format = '%linter% says %s'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
+" }}}
+" Window Swap {{{
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
 " }}}
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
