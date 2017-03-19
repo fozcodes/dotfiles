@@ -43,6 +43,14 @@ call vundle#end()
 set ttyfast                     " faster redraw
 set backspace=indent,eol,start
 " }}}
+" Searching {{{
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+map <CR> :nohl<cr>
+" }}}
 " Undo / Swap shit {{{
 " http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name/9528322#9528322
 " Save your backups to a less annoying place than the current directory.
