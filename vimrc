@@ -299,6 +299,9 @@ let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_format = '%linter% says %s'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
+let g:ale_linters = {
+\  'typescript': ['tslint']
+\}
 " }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
