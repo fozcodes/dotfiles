@@ -176,7 +176,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,java,go,php,javascript,jsx,json,puppet,python,rust,ruby,elixir,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,elixir,groovy,java,go,php,javascript,jsx,json,puppet,python,rust,ruby,twig,xml,yml,perl,sql,md,ts autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -203,7 +203,7 @@ if getline(1) =~# '^#!.*/bin/env\s\+[babel\-]?node\>'
     setfiletype javascript
 endif
 
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 " }}} 
 " Turn off spell check cause I spel gud {{{
 set nospell
@@ -250,7 +250,7 @@ inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
 " }}}
 " Ctrl P {{{ 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|\~$'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|\~$'
 " }}}
 " EasyMotion {{{
 let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
