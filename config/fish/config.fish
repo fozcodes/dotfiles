@@ -8,6 +8,7 @@ end
 
 alias b="bundle"
 alias be="bundle exec"
+alias c="clear"
 alias dkrmall="docker rm (docker ps -a -q)"
 alias gaac="git add .; and git commit"
 alias grb="git rebase -i origin/master"
