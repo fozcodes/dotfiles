@@ -78,6 +78,12 @@
 
   :config (setq linum-relative-current-symbol ">>"))
 
+(use-package ace-jump-mode
+  :ensure t
+  :commands ace-jump-mode
+  :init
+  (bind-key* "C-c SPC" 'ace-jump-mode))
+
 ;; Essential settings.
 (setq inhibit-splash-screen t
       inhibit-startup-message t
