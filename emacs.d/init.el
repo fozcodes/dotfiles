@@ -27,7 +27,7 @@
   (progn
     ;; if we don't have this evil overwrites the cursor color
     (setq evil-default-cursor t)
-
+    (setq evil-want-C-u-scroll t)
     ;; boot evil by default
     (evil-mode 1))
   :config
