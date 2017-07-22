@@ -100,6 +100,11 @@
 
 ;; ORG mode stuff
 (setq org-todo-keywords '((sequence "TODO" "WAITING" "|" "DONE")))
+(setq org-startup-indented t)
+(setq org-cycle-separator-lines 0)
+(setq org-blank-before-new-entry (quote ((heading)
+                                         (plain-list-item . auto))))
+(setq org-insert-heading-respect-content nil)
 
 (set-face-attribute 'default nil :height 170)
 (custom-set-variables
