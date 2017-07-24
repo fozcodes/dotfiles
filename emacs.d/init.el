@@ -32,10 +32,6 @@
     (evil-mode 1))
   :config
   (progn
-    (global-set-key (kbd "C-k") 'windmove-up)
-    (global-set-key (kbd "C-j") 'windmove-down)
-    (global-set-key (kbd "C-h") 'windmove-left)
-    (global-set-key (kbd "C-l") 'windmove-right)
     (defun my-jk ()
       (interactive)
       (let* ((initial-key ?j)
