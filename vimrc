@@ -14,8 +14,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'AutoClose'
+Plugin 'bkad/CamelCaseMotion'
 Plugin 'KeitaNakamura/neodark.vim'
-Plugin 'Shougo/neocomplete.vim.git'
+Plugin 'Shougo/neocomplete'
 Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neosnippet-snippets'
 Plugin 'altercation/vim-colors-solarized'
@@ -176,9 +177,9 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,elixir,groovy,java,go,php,javascript,jsx,json,puppet,python,rust,ruby,twig,xml,yml,perl,sql,md,ts autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,twig,xml,yml,perl,sql,md,ts,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd FileType haskell,puppet,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
 
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
@@ -235,6 +236,7 @@ let g:airline_theme = "hybrid"
 " Clipboard stuff {{{
 " ------- Do some stupid shit w/ clipboard that 
 "  ------ I can't live without cause I suck
+set clipboard=unnamed
 if has('clipboard')
   if has('unnamedplus')  " When possible use + register for copy-paste
     set clipboard=unnamed,unnamedplus
@@ -251,6 +253,7 @@ inoremap [<CR> [<CR>]<C-o>==<C-o>O
 " }}}
 " Ctrl P {{{ 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|\~$'
+let g:ctrlp_show_hidden = 1
 " }}}
 " EasyMotion {{{
 let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
@@ -269,6 +272,7 @@ let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 " }}}
 " NeoComplete {{{
+set runtimepath+=~/.vim.snippets/
 let g:neocomplete#enable_at_startup = 1
 if has("autocmd") && exists("+omnifunc")
   autocmd Filetype *
@@ -300,7 +304,8 @@ let g:ale_echo_msg_format = '%linter% says %s'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_linters = {
-\  'typescript': ['tslint']
+\  'typescript': ['tslint'],
+\  'javascript': ['eslint']
 \}
 " }}}
 " Window Swap {{{
@@ -308,6 +313,9 @@ let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
 nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
+" }}}
+" CamelCaseMotion (underscores) {{{
+call camelcasemotion#CreateMotionMappings('<leader>')
 " }}}
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0

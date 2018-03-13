@@ -7,7 +7,7 @@ brew update
 #install cask
 brew tap caskroom/cask
 
-# install me brews
+# install me brews -  the obscure ones are probably for asdf
 brew install ansible
 brew install autoconf
 brew install automake
@@ -16,7 +16,9 @@ brew install awscli
 brew install bash-completion
 brew install battery
 brew install cmake
+brew install coreutils
 brew install ctags
+brew install direnv
 brew install exercism
 brew install fish
 brew install freetype
@@ -31,11 +33,15 @@ brew install jpeg
 brew install jq
 brew install kubernetes-cli
 brew install kubetail
+brew install libtool
+brew install libyaml
 brew install libxml2
+brew install libxslt
 brew install openssl
 brew install parity
 brew tap thoughtbot/formulae
 brew install rcm
+brew install readline
 brew install ripgrep
 brew install siege
 brew install sqlite
@@ -43,6 +49,7 @@ brew install terraform
 brew install tmate
 brew install tmux
 brew install tree
+brew install unixodbc
 brew install vim
 
 # install casks
@@ -51,7 +58,7 @@ brew cask install adobe-reader
 brew cask install brave
 brew cask install docker
 brew cask install emacs
-brew cask install fluid
+brew cask install firefox
 brew cask install flux
 brew cask install freedome
 brew cask install front
@@ -93,4 +100,7 @@ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 # install elixir
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
+# setup fish
+echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/fish
 

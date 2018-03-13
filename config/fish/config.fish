@@ -48,3 +48,5 @@ end
 # ASDF
 . $HOME/.asdf/asdf.fish
 . $HOME/.asdf/completions/asdf.fish
+
+eval (direnv hook fish)

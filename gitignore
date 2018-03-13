@@ -4,3 +4,5 @@
 *tags
 .tool-versions*
 .elasticbeanstalk/
+.env.*
+!.env.*.example
