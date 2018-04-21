@@ -37,7 +37,6 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
 Plugin 'w0rp/ale'
 Plugin 'wesQ3/vim-windowswap'
-Plugin 'tomasr/molokai'
 call vundle#end()
 " }}}
 " Misc {{{
@@ -177,7 +176,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,twig,xml,yml,perl,sql,md,ts,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -204,7 +203,7 @@ if getline(1) =~# '^#!.*/bin/env\s\+[babel\-]?node\>'
     setfiletype javascript
 endif
 
-let g:jsx_ext_required = 1
+let g:jsx_ext_required = 0
 " }}} 
 " Turn off spell check cause I spel gud {{{
 set nospell
@@ -307,6 +306,15 @@ let g:ale_linters = {
 \  'typescript': ['tslint'],
 \  'javascript': ['eslint']
 \}
+let g:ale_fixers = {
+\ 'javascript': ['prettier'],
+\ 'typescript': ['prettier'],
+\ 'typescript.tsx': ['prettier'],
+\ 'json': ['prettier'],
+\ 'css': ['prettier']
+\ }
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_use_local_config = 1
 " }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings

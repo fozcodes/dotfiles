@@ -8,6 +8,8 @@
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'molokai t)
+(custom-theme-set-faces 'user
+                        `(org-level-4 ((t (:foreground "sky blue")))))
 
 ;; Sensible Defaults
 (load-file "~/.emacs.d/sensible-defaults.el")
