@@ -307,6 +307,7 @@ let g:ale_linters = {
 \  'javascript': ['eslint']
 \}
 let g:ale_fixers = {
+\ 'elixir': ['mix_format'],
 \ 'javascript': ['prettier'],
 \ 'typescript': ['prettier'],
 \ 'typescript.tsx': ['prettier'],
