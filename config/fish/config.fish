@@ -14,6 +14,7 @@ alias gaac="git add .; and git commit"
 alias grb="git rebase -i origin/master"
 alias grbc="git rebase --continue"
 alias gitcleanbranches="git branch --merged | grep -v master | xargs git branch -D"
+alias gitreallycleanbranches="git branch | grep -v 'master' | xargs git branch -D"
 alias grep="grep --color --exclude=\"*/coverage/*\" --exclude=\"*.git/*\""
 alias mkdir="mkdir -p"
 alias npmi="npm install"
@@ -34,7 +35,7 @@ function npms
 end
 
 function npmsd 
-  npm install --save-dev $argv
+  npm install --save-dev -E $argv
 end
 
 function mixnew
@@ -50,3 +51,10 @@ end
 . $HOME/.asdf/completions/asdf.fish
 
 eval (direnv hook fish)
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish

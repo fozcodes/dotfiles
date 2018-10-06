@@ -191,6 +191,9 @@ autocmd FileType haskell setlocal commentstring=--\ %s
 " Workaround broken colour highlighting in Haskell
 autocmd FileType haskell,rust setlocal nospell
 
+" Syntax highlight for digdag files
+au! BufNewFile,BufRead *.dig setfiletype yml
+
 "Wrap for Markdown files
 au BufRead,BufNewFile *.md setlocal textwidth=80
 
@@ -316,6 +319,7 @@ let g:ale_fixers = {
 \ }
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+map <leader>at :ALEToggleBuffer<CR>
 " }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
@@ -325,6 +329,9 @@ nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
 " }}}
 " CamelCaseMotion (underscores) {{{
 call camelcasemotion#CreateMotionMappings('<leader>')
+" }}}
+" Vim Obsession (underscores) {{{
+autocmd VimEnter * Obsess ~/.vim/sessions/
 " }}}
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0
