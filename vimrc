@@ -176,7 +176,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -299,6 +299,11 @@ imap <silent><expr><c-k> neosnippet#expandable() ?
       \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
       \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
 " }}}
+" Tsu (typescript client plugin) {{{
+"autocmd FileType typescript setlocal completeopt-=menu
+"let g:tsuquyomi_disable_quickfix = 1
+"imap <leader>tsi :TsuImport<CR><CR>
+" }}}
 " Ale {{{
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
@@ -306,7 +311,7 @@ let g:ale_echo_msg_format = '%linter% says %s'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_linters = {
-\  'typescript': ['tslint'],
+\  'typescript': ['tsserver', 'tslint'],
 \  'javascript': ['eslint']
 \}
 let g:ale_fixers = {
@@ -319,7 +324,7 @@ let g:ale_fixers = {
 \ }
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
-map <leader>at :ALEToggleBuffer<CR>
+map <leader>at :ALEToggleBuffer<CR><CR>
 " }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
