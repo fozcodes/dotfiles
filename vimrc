@@ -16,9 +16,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'AutoClose'
 Plugin 'bkad/CamelCaseMotion'
 Plugin 'KeitaNakamura/neodark.vim'
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'ctrlp.vim'
@@ -32,6 +29,7 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+Plugin 'triglav/vim-visual-increment'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0ng/vim-hybrid'
@@ -118,7 +116,7 @@ inoremap jk <esc>
 " }}}
 " Folding {{{
 set foldenable
-set foldmethod=indent   
+set foldmethod=indent
 set foldnestmax=10      " 10 nested fold max
 set foldlevelstart=10   " open most folds by default
 " space open/closes folds
@@ -146,32 +144,32 @@ function! StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 
-function! Clevertab()
-  if pumvisible()
-    return "\<c-n>"
-  endif
-  let substr = strpart(getline('.'), 0, col('.') - 1)
-  let substr = matchstr(substr, '[^ \t]*$')
-  if strlen(substr) == 0
-    " nothing to match on empty string
-    return "\<tab>"
-  else
-    " existing text matching
-    if neosnippet#expandable_or_jumpable()
-      return "\<plug>(neosnippet_expand_or_jump)"
-    else
-      return neocomplete#start_manual_complete()
-    endif
-  endif
-endfunction
+"function! Clevertab()
+  "if pumvisible()
+    "return "\<c-n>"
+  "endif
+  "let substr = strpart(getline('.'), 0, col('.') - 1)
+  "let substr = matchstr(substr, '[^ \t]*$')
+  "if strlen(substr) == 0
+    "" nothing to match on empty string
+    "return "\<tab>"
+  "else
+    "" existing text matching
+    "if neosnippet#expandable_or_jumpable()
+      "return "\<plug>(neosnippet_expand_or_jump)"
+    "else
+      "return neocomplete#start_manual_complete()
+    "endif
+  "endif
+"endfunction
 
-function! CleverCr()
-  if pumvisible()
-    return "\<esc>a"
-  else
-    return "\<Enter>"
-  endif
-endfunction
+"function! CleverCr()
+  "if pumvisible()
+    "return "\<esc>a"
+  "else
+    "return "\<Enter>"
+  "endif
+"endfunction
 " }}} 
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
@@ -289,9 +287,9 @@ let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#max_list = 15
 let g:neocomplete#force_overwrite_completefunc = 1
 
-imap <expr> <tab> Clevertab()
+"imap <expr> <tab> Clevertab()
 " <cr> close popup and save indent or expand snippet
-imap <expr> <CR> CleverCr()
+"imap <expr> <CR> CleverCr()
 
 " <c-k> complete snippet
 " <c-k> jump to next snippet point
@@ -299,15 +297,14 @@ imap <silent><expr><c-k> neosnippet#expandable() ?
       \ "\<plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
       \ "\<c-e>" : "\<plug>(neosnippet_expand_or_jump)")
 " }}}
-" Tsu (typescript client plugin) {{{
-"autocmd FileType typescript setlocal completeopt-=menu
-"let g:tsuquyomi_disable_quickfix = 1
-"imap <leader>tsi :TsuImport<CR><CR>
-" }}}
 " Ale {{{
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_format = '%linter% says %s'
+let g:ale_lint_on_text_changed = 0
+"let g:ale_lint_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_insert_leave = 1
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_linters = {
@@ -315,12 +312,13 @@ let g:ale_linters = {
 \  'javascript': ['eslint']
 \}
 let g:ale_fixers = {
-\ 'elixir': ['mix_format'],
 \ 'javascript': ['prettier'],
+\ 'elixir': ['mix_format'],
 \ 'typescript': ['prettier'],
 \ 'typescript.tsx': ['prettier'],
 \ 'json': ['prettier'],
-\ 'css': ['prettier']
+\ 'css': ['prettier'],
+\ 'scss': ['prettier']
 \ }
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1

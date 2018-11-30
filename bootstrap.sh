@@ -17,7 +17,6 @@ brew install bash-completion
 brew install battery
 brew install cmake
 brew install coreutils
-brew install ctags
 brew install direnv
 brew install exercism
 brew install fish
@@ -87,6 +86,10 @@ brew cask install terraform
 brew cask install vagrant
 brew cask install virtualbox
 brew cask install zeplin
+
+# install ctags after emacs
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
+brew link --overwrite universal-ctags
 
 #install asdf for package management
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.3.0
