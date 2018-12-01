@@ -273,6 +273,7 @@ let NERDTreeQuitOnOpen=1
 " }}}
 " Snippets {{{
 nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
+nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
 
 " }}}
 " Ale {{{
