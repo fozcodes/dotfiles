@@ -105,7 +105,7 @@ set shiftwidth=2
 set nojoinspaces            " Prevents inserting two spaces after punctuation on a join (J)
 " }}}
 " Commands {{{
-command! MakeTags !ctags -R .
+command! MakeTags !ctags -R --exclude=_build .
 set tags=tags;/
 " }}}
 " Leader Shortcuts {{{
@@ -174,7 +174,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -274,6 +274,7 @@ let NERDTreeQuitOnOpen=1
 " Snippets {{{
 nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
 nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
+nnoremap <leader>extest :-1read $HOME/.vim.snippets/.elixir_test.exs<CR>ee
 
 " }}}
 " Ale {{{
@@ -284,11 +285,13 @@ let g:ale_lint_on_text_changed = 0
 "let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
+let g:ale_elixir_elixir_ls_release = '~/.elixir'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_linters = {
 \  'typescript': ['tsserver', 'tslint'],
-\  'javascript': ['eslint']
+\  'javascript': ['eslint'],
+\  'elixir': ['elixir-ls']
 \}
 let g:ale_fixers = {
 \ 'javascript': ['prettier'],

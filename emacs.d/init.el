@@ -509,6 +509,7 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       next-headline)))
 
 ;; Journal view settings
+(add-hook 'org-mode-hook '(lambda () (visual-line-mode t)) t)
 (defun toggle-journal-view ()
   "Toggles full-screen, centered journal view mode on/off"
   (interactive)

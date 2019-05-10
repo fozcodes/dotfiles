@@ -6,3 +6,6 @@ function npmsd () { npm install --save-dev "$@"; }
 function mixnew () { mix new "$@" && eval cd "\"\$$#\""; }
 
 function phnew () { mix phoenix.new "$@" && eval cd "\"\$$#\"";}
+
+function hours_vacay () { rg vacation -g '!~/.hours/backup/**' -g '!~/.hours/*-remoteCopy.txt' -g '!~/.hours/**/projects.json' -c --sort-files }
+function hours_vacay_total () { rg vacation -g '!backup' -g '!*-remoteCopy.txt' -g '!projects.json' -c --sort-files  --no-filename | awk '{ SUM += $1} END { print SUM }'}
