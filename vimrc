@@ -174,7 +174,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,liquid,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,sh,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -182,6 +182,7 @@ autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandt
 autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd BufNewFile,BufRead *.scerb set filetype=scss.erb
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+autocmd BufNewFile,BufRead *.leex set filetype=eelixir
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
 " Workaround vim-commentary for Haskell
@@ -250,6 +251,7 @@ endif
 inoremap {<CR> {<CR>}<C-o>==<C-o>O
 inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
+imap {{ {{}}<Esc>hi
 " }}}
 " Ctrl P {{{ 
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|\~$'
@@ -276,6 +278,9 @@ nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
 nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
 nnoremap <leader>extest :-1read $HOME/.vim.snippets/.elixir_test.exs<CR>ee
 
+nnoremap <leader>div :-1read $HOME/.vim.snippets/.div.html<CR>eebl
+nnoremap <leader>divwc :-1read $HOME/.vim.snippets/.div_with_class.html<CR>eeeh
+
 " }}}
 " Ale {{{
 let g:ale_sign_error = '✖'
@@ -296,6 +301,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \ 'javascript': ['prettier'],
 \ 'elixir': ['mix_format'],
+\ 'eelixir': ['mix_format'],
 \ 'typescript': ['prettier'],
 \ 'typescript.tsx': ['prettier'],
 \ 'json': ['prettier'],
