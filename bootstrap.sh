@@ -85,6 +85,7 @@ brew install pkg-config
 brew install postgresql
 brew install python
 brew install qt@5.5
+brew tap thoughtbot/formulae
 brew install rcm
 brew install readline
 brew install reattach-to-user-namespace
@@ -172,3 +173,13 @@ asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
 
+# copy rcm config
+ln -s ~/.dotfiles/.rcrc ~/.rcrc
+rcup
+
+# install vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# setup ssh keys (You'll need to gen one...)
+mkdir -p ~/.ssh
+mv ./config/ssh/config ~/.ssh/config
