@@ -96,6 +96,7 @@ brew install spark
 brew install sqlite
 brew install tcptraceroute
 brew install telnet
+brew tap shopify/shopify
 brew install themekit
 brew install tldr
 brew install tmate
