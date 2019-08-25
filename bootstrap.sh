@@ -169,6 +169,11 @@ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 # install elixir
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
+# setup fonts
+git clone git@github.com:powerline/fonts.git
+./fonts/install.sh
+rm -rf .fonts
+
 # setup fish
 echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/fish
@@ -176,14 +181,15 @@ curl -L https://get.oh-my.fish | fish
 omf install agnoster
 omf theme agnoster
 
-# copy rcm config
-ln -s ~/.dotfiles/.rcrc ~/.rcrc
-rcup
-
 # install vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 mkdirp ~/.vim/sessions
 
+# copy rcm config
+ln -s ~/.dotfiles/.rcrc ~/.rcrc
+rcup
+
 # setup ssh keys (You'll need to gen one...)
 mkdir -p ~/.ssh
 mv ./config/ssh/config ~/.ssh/config
+
