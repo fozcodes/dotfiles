@@ -182,6 +182,7 @@ rcup
 
 # install vundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+mkdirp ~/.vim/sessions
 
 # setup ssh keys (You'll need to gen one...)
 mkdir -p ~/.ssh
