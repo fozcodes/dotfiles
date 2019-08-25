@@ -184,3 +184,5 @@ mkdirp ~/.vim/sessions
 # setup ssh keys (You'll need to gen one...)
 mkdir -p ~/.ssh
 mv ./config/ssh/config ~/.ssh/config
+ssh-keygen -t rsa -b 4096 -C "ian@codeguy.io"
+ssh-add -K ~/.ssh/id_rsa
