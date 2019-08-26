@@ -65,6 +65,7 @@ brew install libxslt
 brew install libyaml
 brew install libzip
 brew install lua
+brew install mas
 brew install msgpack
 brew install nettle
 brew install node
