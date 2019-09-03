@@ -15,6 +15,7 @@ brew install automake
 brew install aws-elasticbeanstalk
 brew install awscli
 brew install bash-completion
+brew tap Goles/battery
 brew install battery
 brew install circleci
 brew install cmake

@@ -1,3 +1,4 @@
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-initialize)
 
 (require 'package)
@@ -16,12 +17,20 @@
 (sensible-defaults/use-all-settings)
 (sensible-defaults/use-all-keybindings)
 
+;; Evil
+;(add-to-list 'load-path "~/.emacs.d/evil")
+;(require 'evil)
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
 
 (eval-when-compile
   (require 'use-package))
+
+(use-package undo-tree-0.6.3
+             :ensure t
+             :init)
 
 (use-package evil
   :ensure t
@@ -129,7 +138,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-level-4 ((t (:foreground "sky blue")))))
 (visual-line-mode t)
 
 ;; CLOCK STUFF
