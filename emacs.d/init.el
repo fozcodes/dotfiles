@@ -1,4 +1,3 @@
-(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-initialize)
 
 (require 'package)
@@ -27,10 +26,6 @@
 
 (eval-when-compile
   (require 'use-package))
-
-(use-package undo-tree-0.6.3
-             :ensure t
-             :init)
 
 (use-package evil
   :ensure t
