@@ -3,9 +3,10 @@ set shell=/bin/sh
 set nocompatible
 filetype off
 set encoding=utf-8
-set title                   " Put title in terminal window 
+set title                   " Put title in terminal window
 set exrc
 set secure
+set backupcopy=yes
 " }}}
 " Plugins {{{
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -27,6 +28,7 @@ Plugin 'roman/golden-ratio'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree.git'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-liquid'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -112,7 +114,7 @@ set tags=tags;/
 " Leader Shortcuts {{{
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
-nnoremap <leader>rtw :%s/\s\+$//e<CR> 
+nnoremap <leader>rtw :%s/\s\+$//e<CR>
 inoremap jk <esc>
 " }}}
 " Folding {{{
@@ -122,7 +124,7 @@ set foldnestmax=10      " 10 nested fold max
 set foldlevelstart=10   " open most folds by default
 " space open/closes folds
 nnoremap <space> za
-" }}} 
+" }}}
 " Custom Functions {{{
 function! ToggleBG()        " Allow to trigger background
   let s:tbg = &background
@@ -171,7 +173,7 @@ endfunction
     "return "\<Enter>"
   "endif
 "endfunction
-" }}} 
+" }}}
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
@@ -207,13 +209,13 @@ if getline(1) =~# '^#!.*/bin/env\s\+[babel\-]?node\>'
 endif
 
 let g:jsx_ext_required = 0
-" }}} 
+" }}}
 " Turn off spell check cause I spel gud {{{
 set nospell
 highlight ColorColumn ctermbg=17 ctermfg=white guibg=#CCCCCC
 set colorcolumn=80
 autocmd BufRead,BufNewFile *.md setlocal spell " Except MD files...can't spell
-" }}} 
+" }}}
 " UI Related Shit {{{
 set splitright              " Puts new vsplit windows to the right of the current
 set splitbelow              " Puts new split windows to the bottom of the current
@@ -234,9 +236,9 @@ colorscheme hybrid_reverse
 "colorscheme solarized
 set cursorline
 let g:airline_theme = "hybrid"
-" }}} 
+" }}}
 " Clipboard stuff {{{
-" ------- Do some stupid shit w/ clipboard that 
+" ------- Do some stupid shit w/ clipboard that
 "  ------ I can't live without cause I suck
 set clipboard=unnamed
 if has('clipboard')
@@ -254,15 +256,16 @@ inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
 imap {{ {{}}<Esc>hi
 " }}}
-" Ctrl P {{{ 
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|\~$'
+" Ctrl P {{{
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.beam
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|*.beam\~$'
 let g:ctrlp_show_hidden = 1
 " }}}
 " EasyMotion {{{
 let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
 " }}}
 " NERDtree {{{
-let g:NERDShutUp=1 
+let g:NERDShutUp=1
 nnoremap <C-e> :NERDTreeToggle<CR>
 map <leader>e :NERDTreeFind<CR>
 nmap <leader>nt :NERDTreeFind<CR>
@@ -273,6 +276,7 @@ let NERDTreeChDirMode=0
 let NERDTreeMouseMode=0
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
+
 " }}}
 " Snippets {{{
 nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
@@ -288,27 +292,29 @@ let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_echo_msg_format = '%linter% says %s'
 let g:ale_lint_on_text_changed = 0
-"let g:ale_lint_on_save = 1
+let g:ale_lint_on_save = 1
 let g:ale_lint_on_enter = 1
 let g:ale_lint_on_insert_leave = 1
-let g:ale_elixir_elixir_ls_release = '~/.elixir'
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
-let g:ale_linters = {
-\  'typescript': ['tsserver', 'tslint'],
-\  'javascript': ['eslint'],
-\  'elixir': ['elixir-ls']
-\}
-let g:ale_fixers = {
-\ 'javascript': ['prettier'],
-\ 'elixir': ['mix_format'],
-\ 'eelixir': ['mix_format'],
-\ 'typescript': ['prettier'],
-\ 'typescript.tsx': ['prettier'],
-\ 'json': ['prettier'],
-\ 'css': ['prettier'],
-\ 'scss': ['prettier']
-\ }
+
+let g:ale_linters = {}
+let g:ale_linters.typescript = ['tsserver', 'tslint']
+let g:ale_linters.javascript = ['eslint']
+let g:ale_linters.elixir = ['elixir-ls', 'credo']
+let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers.javascript = ['prettier']
+let g:ale_fixers.scss = ['prettier']
+let g:ale_fixers.css = ['prettier']
+let g:ale_fixers.html = ['prettier']
+let g:ale_fixers.json = ['prettier']
+let g:ale_fixers.elm = ['format']
+let g:ale_fixers.elixir = ['mix_format']
+
+let g:ale_elixir_elixir_ls_release = '/Users/foz/.elixir/elixir-ls/rel'
+
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
 map <leader>at :ALEToggleBuffer<CR><CR>

@@ -33,6 +33,7 @@ brew install gnupg
 brew install gnutls
 brew install go
 brew install grip
+brew tap heroku/brew
 brew install heroku
 brew install heroku-node
 brew install htop

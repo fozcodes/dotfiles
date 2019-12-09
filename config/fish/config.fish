@@ -11,18 +11,19 @@ alias be="bundle exec"
 alias c="clear"
 alias dkrmall="docker rm (docker ps -a -q)"
 alias gaac="git add .; and git commit"
-alias grb="git rebase -i origin/master"
-alias grbc="git rebase --continue"
 alias gitcleanbranches="git branch --merged | grep -v master | xargs git branch -D"
 alias gitreallycleanbranches="git branch | grep -v 'master' | xargs git branch -D"
+alias grb="git rebase -i origin/master"
+alias grbc="git rebase --continue"
 alias grep="grep --color --exclude=\"*/coverage/*\" --exclude=\"*.git/*\""
+alias la="lsd -la"
 alias mkdir="mkdir -p"
 alias npmi="npm install"
+alias psqlapp="'/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql -p5432"
 alias rcup="env RCRC=~/.dotfiles/.rcrc rcup"
 alias rst="touch tmp/restart.txt"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias tl="tmux ls"
-alias psqlapp="'/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql -p5432"
 
 # functions
 
@@ -66,4 +67,7 @@ eval (direnv hook fish)
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" $fish_user_paths
+set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" "/Users/foz/.bin" $fish_user_paths
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc'; end
