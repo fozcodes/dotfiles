@@ -6,3 +6,4 @@
 .elasticbeanstalk/
 .env.*
 !.env.*.example
+.elixir_ls/
