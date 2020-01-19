@@ -115,7 +115,6 @@ set tags=tags;/
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
-inoremap jk <esc>
 " }}}
 " Folding {{{
 set foldenable
@@ -299,13 +298,16 @@ highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 
 let g:ale_linters = {}
-let g:ale_linters.typescript = ['tsserver', 'tslint']
+let g:ale_linters.typescript = ['tsserver', 'tslint', 'eslint']
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.elixir = ['elixir-ls', 'credo']
 let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
 
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fixers.javascript = ['prettier']
+let g:ale_fixers.typescript = ['prettier']
+let g:ale_fixers.typescriptreact = ['prettier']
+let g:ale_fixers.graphql = ['prettier']
 let g:ale_fixers.scss = ['prettier']
 let g:ale_fixers.css = ['prettier']
 let g:ale_fixers.html = ['prettier']
@@ -317,7 +319,9 @@ let g:ale_elixir_elixir_ls_release = '/Users/foz/.elixir/elixir-ls/rel'
 
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
-map <leader>at :ALEToggleBuffer<CR><CR>
+nmap <silent> <leader>at :ALEToggleBuffer<CR><CR>
+nmap <silent> <C-]> :ALEGoToDefinition<cr>
+nmap <silent> <leader>h :ALEDetail<CR>
 " }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
