@@ -7,3 +7,6 @@
 .env.*
 !.env.*.example
 .elixir_ls/
+.flake8
+flake8.cfg
+.prettierrc.json

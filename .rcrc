@@ -1,2 +1,2 @@
 SYMLINK_DIRS="vim.snippets"
-SYMLINK_DIRS="tmux.plugins"
+SYMLINK_DIRS="tmux"

@@ -115,6 +115,7 @@ set tags=tags;/
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
+nmap <leader>pry orequire IEx; IEx.pry<esc>
 " }}}
 " Folding {{{
 set foldenable
@@ -176,7 +177,7 @@ endfunction
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,java,go,liquid,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,sh,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,html,java,go,liquid,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,sh,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -195,8 +196,11 @@ autocmd FileType haskell,rust setlocal nospell
 " Syntax highlight for digdag files
 au! BufNewFile,BufRead *.dig setfiletype yml
 
+" Syntax highlight for spec gauge files
+au! BufNewFile,BufRead *.spec setfiletype markdown
+
 "Wrap for Markdown files
-au BufRead,BufNewFile *.md setlocal textwidth=80
+au FileType markdown setlocal textwidth=80
 
 let g:rubycomplete_buffer_loading = 1
 
@@ -281,11 +285,21 @@ let NERDTreeQuitOnOpen=1
 nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
 nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
 nnoremap <leader>extest :-1read $HOME/.vim.snippets/.elixir_test.exs<CR>ee
+nnoremap <leader>mdoc :-1read $HOME/.vim.snippets/.elixir_mdoc.exs<CR>j<Ctrl>i
 
 nnoremap <leader>div :-1read $HOME/.vim.snippets/.div.html<CR>eebl
 nnoremap <leader>divwc :-1read $HOME/.vim.snippets/.div_with_class.html<CR>eeeh
 
 " }}}
+" Register Py Language Server {{{
+if executable('pyls')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'whitelist': ['python'],
+        \ })
+endif
+"}}}
 " Ale {{{
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
@@ -299,26 +313,49 @@ highlight clear ALEWarningSign
 
 let g:ale_linters = {}
 let g:ale_linters.typescript = ['tsserver', 'tslint', 'eslint']
+let g:ale_linters.vue = ['tsserver', 'tslint', 'eslint']
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.elixir = ['elixir-ls', 'credo']
+let g:ale_linters.python = ['pyls', 'mypy', 'flake8', 'isort']
 let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
 
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers.css = ['prettier']
+let g:ale_fixers.elixir = ['mix_format']
+let g:ale_fixers.elm = ['format']
+let g:ale_fixers.graphql = ['prettier']
+let g:ale_fixers.html = ['prettier']
 let g:ale_fixers.javascript = ['prettier']
+let g:ale_fixers.json = ['prettier']
+let g:ale_fixers.python = ['black', 'isort']
+let g:ale_fixers.scss = ['prettier']
+let g:ale_fixers.sql = ['prettier']
 let g:ale_fixers.typescript = ['prettier']
 let g:ale_fixers.typescriptreact = ['prettier']
-let g:ale_fixers.graphql = ['prettier']
-let g:ale_fixers.scss = ['prettier']
-let g:ale_fixers.css = ['prettier']
-let g:ale_fixers.html = ['prettier']
-let g:ale_fixers.json = ['prettier']
-let g:ale_fixers.elm = ['format']
-let g:ale_fixers.elixir = ['mix_format']
+let g:ale_fixers.vue = ['prettier']
 
 let g:ale_elixir_elixir_ls_release = '/Users/foz/.elixir/elixir-ls/rel'
-
+let g:ale_elixir_elixir_ls_config = {
+\   'elixirLS': {
+\     'dialyzerEnabled': v:false,
+\   },
+\}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+" Disable auto-detection of virtualenvironments python
+" Environment variable ${VIRTUAL_ENV} is always used
+"let g:ale_virtualenv_dir_names = []
+let g:ale_python_mypy_options = '--config-file .mypy.ini'
+let g:ale_python_pyls_config = {
+\   'pyls': {
+\     'plugins': {
+\       'pycodestyle': {
+\         'enabled': v:false
+\       }
+\     }
+\   },
+\ }
+let g:ale_completion_enabled = 1
 nmap <silent> <leader>at :ALEToggleBuffer<CR><CR>
 nmap <silent> <C-]> :ALEGoToDefinition<cr>
 nmap <silent> <leader>h :ALEDetail<CR>

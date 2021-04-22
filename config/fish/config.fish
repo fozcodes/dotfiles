@@ -26,7 +26,6 @@ alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias tl="tmux ls"
 
 # functions
-
 function mkdircd
   mkdir -p $argv; and cd $argv
 end
@@ -58,11 +57,20 @@ end
 # set iex/erlang history var
 set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 
+#set python pretty print on everywhere
+set -x TBVACCINE 1
+
 # ASDF
-. $HOME/.asdf/asdf.fish
-. $HOME/.asdf/completions/asdf.fish
+source $HOME/.asdf/asdf.fish
+source $HOME/.asdf/completions/asdf.fish
 
 eval (direnv hook fish)
+
+starship init fish | source
+
+# pyenv
+status --is-interactive; and source (pyenv init -|psub)
+status --is-interactive; and source (pyenv virtualenv-init -|psub)
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -74,3 +82,6 @@ set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" "/Users/foz/.bin" $fish_
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc'; end
+
+set -g -x "CLOUDSDK_PYTHON" "/usr/local/opt/python@3.8/libexec/bin/python"
+source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"

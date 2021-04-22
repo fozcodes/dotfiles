@@ -532,4 +532,6 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
       (org-set-local 'header-line-format nil)))
   (redraw-display))
 
+(setq default-frame-alist '((font . "Space Mono for Powerline-32")))
+
 (global-set-key [M-f12] 'toggle-journal-view)
