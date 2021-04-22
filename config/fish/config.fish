@@ -46,14 +46,6 @@ function phnew
   mix phoenix.new $argv; and cd $argv
 end
 
-function hours_vacay
-  rg -g '!backup' -g '!*-remoteCopy.txt' -g '!projects.json' -c --sort-files vacation ~/.hours
-end
-
-function hours_vacay_total
-  rg -g '!backup' -g '!*-remoteCopy.txt' -g '!projects.json' -c --sort-files  --no-filename vacation ~/.hours | awk '{ SUM += $1} END { print SUM }'
-end
-
 # set iex/erlang history var
 set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 
