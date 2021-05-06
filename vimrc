@@ -215,8 +215,6 @@ let g:jsx_ext_required = 0
 " }}}
 " Turn off spell check cause I spel gud {{{
 set nospell
-highlight ColorColumn ctermbg=17 ctermfg=white guibg=#CCCCCC
-set colorcolumn=80
 autocmd BufRead,BufNewFile *.md setlocal spell " Except MD files...can't spell
 " }}}
 " UI Related Shit {{{
@@ -234,11 +232,16 @@ filetype plugin indent on   " Automatically detect file types.
 set t_Co=256
 set background=dark         " Assume a dark background
 "colorscheme molokai
-colorscheme hybrid_reverse
-"colorscheme neodark
+"colorscheme hybrid_reverse
+"let g:neodark#background = '#5f5a63'
+let g:neodark#terminal_transparent = 1 " default: 0
+colorscheme neodark
 "colorscheme solarized
 set cursorline
-let g:airline_theme = "hybrid"
+let g:airline_theme = "bubblegum"
+set colorcolumn=80
+highlight CursorLine ctermbg=238
+highlight ColorColumn ctermbg=238 ctermfg=244 guibg=#CCCCCC
 " }}}
 " Clipboard stuff {{{
 " ------- Do some stupid shit w/ clipboard that
@@ -313,7 +316,6 @@ highlight clear ALEWarningSign
 
 let g:ale_linters = {}
 let g:ale_linters.typescript = ['tsserver', 'tslint', 'eslint']
-let g:ale_linters.vue = ['tsserver', 'tslint', 'eslint']
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.elixir = ['elixir-ls', 'credo']
 let g:ale_linters.python = ['pyls', 'mypy', 'flake8', 'isort']
@@ -327,12 +329,14 @@ let g:ale_fixers.graphql = ['prettier']
 let g:ale_fixers.html = ['prettier']
 let g:ale_fixers.javascript = ['prettier']
 let g:ale_fixers.json = ['prettier']
+let g:ale_fixers.markdown = ['prettier']
 let g:ale_fixers.python = ['black', 'isort']
 let g:ale_fixers.scss = ['prettier']
 let g:ale_fixers.sql = ['prettier']
 let g:ale_fixers.typescript = ['prettier']
 let g:ale_fixers.typescriptreact = ['prettier']
 let g:ale_fixers.vue = ['prettier']
+let g:ale_fixers.yaml = ['prettier']
 
 let g:ale_elixir_elixir_ls_release = '/Users/foz/.elixir/elixir-ls/rel'
 let g:ale_elixir_elixir_ls_config = {
