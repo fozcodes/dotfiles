@@ -200,6 +200,9 @@ au! BufNewFile,BufRead *.dig setfiletype yml
 " Syntax highlight for spec gauge files
 au! BufNewFile,BufRead *.spec setfiletype markdown
 
+" Syntax highlight for prettierrc gauge files
+au! BufNewFile,BufRead .prettierrc setfiletype json
+
 "Wrap for Markdown files
 au FileType markdown setlocal textwidth=80
 
