@@ -245,7 +245,7 @@ set cursorline
 let g:airline_theme = "bubblegum"
 set colorcolumn=80
 highlight CursorLine ctermbg=238
-highlight ColorColumn ctermbg=238 ctermfg=244 guibg=#CCCCCC
+highlight ColorColumn ctermbg=238 guibg=#CCCCCC
 " }}}
 " Clipboard stuff {{{
 " ------- Do some stupid shit w/ clipboard that
