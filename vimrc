@@ -285,11 +285,14 @@ let NERDTreeQuitOnOpen=1
 
 " }}}
 " Snippets {{{
+" Elixir
 nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
+nnoremap <leader>defp :-1read $HOME/.vim.snippets/.elixir_defp.exs<CR>eeb
 nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
 nnoremap <leader>extest :-1read $HOME/.vim.snippets/.elixir_test.exs<CR>ee
 nnoremap <leader>mdoc :-1read $HOME/.vim.snippets/.elixir_mdoc.exs<CR>j<Ctrl>i
 
+" HTML
 nnoremap <leader>div :-1read $HOME/.vim.snippets/.div.html<CR>eebl
 nnoremap <leader>divwc :-1read $HOME/.vim.snippets/.div_with_class.html<CR>eeeh
 
