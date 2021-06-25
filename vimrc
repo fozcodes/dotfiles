@@ -268,7 +268,7 @@ imap {{ {{}}<Esc>hi
 " }}}
 " Ctrl P {{{
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.beam
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|*.beam\~$'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|dist\|build\|*.beam\~$'
 let g:ctrlp_show_hidden = 1
 " }}}
 " EasyMotion {{{
@@ -328,6 +328,20 @@ let g:ale_linters.elixir = ['elixir-ls', 'credo']
 let g:ale_linters.python = ['pyls', 'mypy', 'flake8', 'isort']
 let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
 
+
+function! FormatGauge(buffer) abort
+    return {
+    \   'command': './node_modules/.bin/gauge format --stdin'
+    \}
+endfunction
+
+execute ale#fix#registry#Add('gauge', 'FormatGauge', ['spec'], 'format guage spec files')
+
+" You can now use it in g:ale_fixers
+let g:ale_fixers = {
+  \ 'spec': ['gauge']
+  \}
+
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fixers.css = ['prettier']
 let g:ale_fixers.elixir = ['mix_format']
@@ -366,6 +380,8 @@ let g:ale_python_pyls_config = {
 \     }
 \   },
 \ }
+
+
 let g:ale_completion_enabled = 1
 nmap <silent> <leader>at :ALEToggleBuffer<CR><CR>
 nmap <silent> <C-]> :ALEGoToDefinition<cr>
