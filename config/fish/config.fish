@@ -47,6 +47,9 @@ function phnew
   mix phoenix.new $argv; and cd $argv
 end
 
+set -x FZF_DEFAULT_OPTS "--height 50% --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+set -x FZF_DEFAULT_COMMAND "rg --files"
+
 # set iex/erlang history var
 set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 

@@ -25,6 +25,7 @@ brew install direnv
 brew install exercism
 brew install fish
 brew install freetype
+brew install fzf
 brew install gdbm
 brew install gettext
 brew install gmp
