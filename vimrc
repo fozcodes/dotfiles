@@ -41,6 +41,9 @@ Plugin 'w0rp/ale'
 Plugin 'wesQ3/vim-windowswap'
 call vundle#end()
 " }}}
+" Polyglot {{{
+let g:polyglot_disabled=['coffee-script']
+" }}}
 " Misc {{{
 set ttyfast                     " faster redraw
 set backspace=indent,eol,start
@@ -287,6 +290,9 @@ let NERDTreeMouseMode=0
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 
+" }}}
+" Undotree {{{
+map <leader><leader>u :UndotreeToggle<CR>
 " }}}
 " Snippets {{{
 " Elixir
