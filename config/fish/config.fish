@@ -74,7 +74,8 @@ status --is-interactive; and source (pyenv virtualenv-init -|psub)
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
-set -g fish_user_paths "/usr/local/opt/openssl@1.1/bin" "/Users/foz/.bin" $fish_user_paths
+# Ooof. SSL issues.
+set -g fish_user_paths "/usr/local/opt/libressl/bin" "/Users/foz/.bin" $fish_user_paths
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc'; end
