@@ -29,6 +29,7 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'preservim/nerdtree'
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
@@ -123,9 +124,10 @@ nmap <leader>pry orequire IEx; IEx.pry<esc>
 " }}}
 " Folding {{{
 set foldenable
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=10      " 10 nested fold max
 set foldlevelstart=10   " open most folds by default
+set foldmethod=syntax
 " space open/closes folds
 nnoremap <space> za
 " }}}
@@ -219,6 +221,25 @@ set colorcolumn=80
 highlight CursorLine ctermbg=238
 highlight ColorColumn ctermbg=238 guibg=#CCCCCC
 " }}}
+" Clipboard stuff {{{
+" ------- Do some stupid shit w/ clipboard that
+"  ------ I can't live without cause I suck
+set clipboard=unnamed
+if has('clipboard')
+  if has('unnamedplus')  " When possible use + register for copy-paste
+    set clipboard=unnamed,unnamedplus
+  else         " On mac and Windows, use * register for copy-paste
+    set clipboard=unnamed
+  endif
+endif
+" }}}
+" Autoclose {{{
+" Force newline and put cursor in center
+inoremap {<CR> {<CR>}<C-o>==<C-o>O
+inoremap (<CR> (<CR>)<C-o>==<C-o>O
+inoremap [<CR> [<CR>]<C-o>==<C-o>O
+imap {{ {{}}<Esc>hi
+" }}}
 " EasyMotion {{{
 let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
 " }}}
@@ -239,5 +260,45 @@ let NERDTreeChDirMode=0
 let NERDTreeMouseMode=0
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
+" }}}
+" Undotree {{{
+map <leader><leader>u :UndotreeToggle<CR>
+" }}}
+" Snippets {{{
+" Elixir
+nnoremap <leader>def :-1read $HOME/.vim.snippets/.elixir_def.exs<CR>eeb
+nnoremap <leader>defp :-1read $HOME/.vim.snippets/.elixir_defp.exs<CR>eeb
+nnoremap <leader>defm :-1read $HOME/.vim.snippets/.elixir_defmodule.exs<CR>eeb
+nnoremap <leader>extest :-1read $HOME/.vim.snippets/.elixir_test.exs<CR>ee
+nnoremap <leader>mdoc :-1read $HOME/.vim.snippets/.elixir_mdoc.exs<CR>j<Ctrl>i
+
+" HTML
+nnoremap <leader>div :-1read $HOME/.vim.snippets/.div.html<CR>eebl
+nnoremap <leader>divwc :-1read $HOME/.vim.snippets/.div_with_class.html<CR>eeeh
 
 " }}}
+" Window Swap {{{
+let g:windowswap_map_keys = 0 "prevent default bindings
+nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
+nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
+nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
+" }}}
+" Vim Obsession (underscores) {{{
+"autocmd VimEnter * Obsess ~/.vim/sessions/
+" }}}
+"
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <C-b> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" LSPs setup {{{
+lua << EOF
+require("lsp-config")
+require("compe-config")
+EOF
+" }}}
+" vim:foldmethod=marker:foldlevel=0

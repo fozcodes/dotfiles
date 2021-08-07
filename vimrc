@@ -333,6 +333,7 @@ let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.elixir = ['elixir-ls', 'credo']
 let g:ale_linters.python = ['pyls', 'mypy', 'flake8', 'isort']
 let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
+let g:ale_linters.vue = ['vls', 'eslint']
 
 
 function! FormatGauge(buffer) abort
