@@ -62,11 +62,15 @@ source $HOME/.asdf/completions/asdf.fish
 
 eval (direnv hook fish)
 
-starship init fish | source
+if type -q starship
+	starship init fish | source
+end
 
 # pyenv
-status --is-interactive; and source (pyenv init -|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
+if type -q pyenv
+	status --is-interactive; and source (pyenv init -|psub)
+	status --is-interactive; and source (pyenv virtualenv-init -|psub)
+end
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
