@@ -8,7 +8,7 @@ fi
 
 brew update
 #install cask
-brew tap caskroom/cask
+brew tap homebrew/cask
 
 # install me brews -  the obscure ones are probably for asdf
 brew install 1password
