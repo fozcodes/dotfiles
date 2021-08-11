@@ -43,6 +43,7 @@ Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'preservim/nerdtree'
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'

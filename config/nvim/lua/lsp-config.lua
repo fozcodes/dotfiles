@@ -16,7 +16,9 @@ nvim_lsp.vuels.setup {
             format = {
                 defaultFormatter = {
                     js = "prettier",
-                    ts = "prettier"
+                    ts = "prettier",
+                    vue = "prettier",
+                    html = "prettier"
                 },
                 scriptInitialIndent = false,
                 styleInitialIndent = false,
@@ -51,7 +53,39 @@ end
 --end
 
 nvim_lsp.tsserver.setup {
-  on_attach = on_attach,
+  on_attach = function(_, bufnr)
+        local ts_utils = require("nvim-lsp-ts-utils")
+
+        -- defaults
+        ts_utils.setup {
+            disable_commands = false,
+            enable_import_on_completion = false,
+            import_on_completion_timeout = 5000,
+            -- eslint
+            eslint_bin = "./node_modules/.bin/eslint",
+            eslint_args = {"-f", "json", "--stdin", "--stdin-filename", "$FILENAME"},
+            eslint_enable_disable_comments = true,
+
+            -- experimental settings!
+            -- eslint diagnostics
+            eslint_enable_diagnostics = true,
+            eslint_diagnostics_debounce = 250,
+            -- formatting
+            enable_formatting = true,
+            formatter = "./node_modules/.bin/prettier",
+            formatter_args = {"--stdin-filepath", "$FILENAME"},
+            format_on_save = true,
+            no_save_after_format = false
+        }
+
+        vim.lsp.buf_request = ts_utils.buf_request
+
+        -- no default maps, so you may want to define some here
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "qq", ":TSLspFixCurrent<CR>", {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", {silent = true})
+        vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", {silent = true})
+    end;
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" }
   }
 
@@ -68,7 +102,7 @@ nvim_lsp.diagnosticls.setup {
         vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
     end
   end;
-  filetypes = { 'javascript', 'javascriptreact', 'json', 'typescript', 'typescriptreact', 'css', 'less', 'scss', 'markdown', 'pandoc', 'vue' },
+  filetypes = { 'javascript', 'javascriptreact', 'json', 'css', 'less', 'scss', 'markdown', 'pandoc', 'vue' },
   init_options = {
     linters = {
       eslint = {

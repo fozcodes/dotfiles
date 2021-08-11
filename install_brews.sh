@@ -48,6 +48,7 @@ brew install freetype
 brew install frei0r
 brew install fribidi
 brew install fzf
+brew install gcc
 brew install gd
 brew install gdbm
 brew install gdk-pixbuf
