@@ -1,6 +1,18 @@
 local nvim_lsp = require("lspconfig")
 
-nvim_lsp.pyright.setup{}
+--nvim_lsp.pyright.setup{
+  --settings = {
+    --python = {
+      --disableOrganizeImports = false,
+      --venvPath = "$VIRTUAL_ENV"
+    --}
+  --}
+--}
+
+nvim_lsp.pylsp.setup{}
+
+
+-- Vue LS
 nvim_lsp.vuels.setup {
   on_attach = function(client)
     client.resolved_capabilities.document_formatting = true
@@ -17,7 +29,6 @@ nvim_lsp.vuels.setup {
                 defaultFormatter = {
                     js = "prettier",
                     ts = "prettier",
-                    vue = "prettier",
                     html = "prettier"
                 },
                 scriptInitialIndent = false,
