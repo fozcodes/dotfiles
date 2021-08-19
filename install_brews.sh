@@ -85,6 +85,7 @@ brew install jemalloc
 brew install jpeg
 brew install jq
 brew install krb5
+brew install krisp
 brew install lame
 brew install lazydocker
 brew install leiningen

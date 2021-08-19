@@ -118,6 +118,8 @@ set tags=tags;/
 " Leader Shortcuts {{{
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
+noremap <leader>c2s :call CamelToSnake()<CR>
+noremap <leader>c2s :call SnakeToCamel()<CR>
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
 nmap <leader>pry orequire IEx; IEx.pry<esc>
 " }}}
@@ -150,6 +152,15 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+function! CamelToSnake()
+  s#\(\<\u\l\+\|\l\+\)\(\u\)#\l\1_\l\2#g
+endfunction
+
+function! SnakeToCamel()
+  s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
+endfunction
+
 
 "function! Clevertab()
   "if pumvisible()
