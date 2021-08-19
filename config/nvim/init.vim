@@ -38,12 +38,16 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'preservim/nerdtree'
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
@@ -311,8 +315,11 @@ nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> <C-b> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 " LSPs setup {{{
 lua << EOF
-require("lsp-config")
+--require("lsp-config")
+_G.global = {}
+require("lsp")
 require("compe-config")
+require("treesitter-config")
 EOF
 " }}}
 " vim:foldmethod=marker:foldlevel=0

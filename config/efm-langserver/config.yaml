@@ -1,0 +1,29 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 0.5s
+
+tools:
+  mix_credo: &mix_credo
+    lint-command: "MIX_ENV=test mix credo suggest --format=flycheck --read-from-stdin ${INPUT}"
+    lint-stdin: true
+    lint-ignore-exit-code: true
+    lint-formats:
+      - '%f:%l:%c: %t: %m'
+      - '%f:%l: %t: %m'
+    lint-category-map:
+      R: N
+      D: I
+      F: E
+      W: W
+    root-markers:
+      - mix.lock
+      - mix.exs
+  mix_format: &mix_format
+    format-command: 'mix format ${INPUT}'
+    format-stdin: true
+
+languages:
+  elixir:
+    - <<: *mix_credo
+    - <<: *mix_format
