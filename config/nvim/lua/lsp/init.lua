@@ -34,6 +34,17 @@ _G.global.lsp = {
     prev_diagnostic = prev_diagnostic,
 }
 
+local border = {
+    {"🭽", "FloatBorder"},
+    {"▔", "FloatBorder"},
+    {"🭾", "FloatBorder"},
+    {"▕", "FloatBorder"},
+    {"🭿", "FloatBorder"},
+    {"▁", "FloatBorder"},
+    {"🭼", "FloatBorder"},
+    {"▏", "FloatBorder"},
+}
+
 local on_attach = function(client, bufnr)
     -- commands
     u.lua_command("LspFormatting", "vim.lsp.buf.formatting()")
@@ -46,18 +57,51 @@ local on_attach = function(client, bufnr)
 
     u.buf_augroup("LspAutocommands", "CursorHold", "LspDiagLine")
 
+    local opts = { noremap=true, silent=true }
     -- bindings
+    u.buf_map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
+    u.buf_map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
     u.buf_map("n", "gi", ":LspRename<CR>", nil, bufnr)
     u.buf_map("n", "K", ":LspHover<CR>", nil, bufnr)
     u.buf_map("n", "[a", ":LspDiagPrev<CR>", nil, bufnr)
     u.buf_map("n", "]a", ":LspDiagNext<CR>", nil, bufnr)
     u.buf_map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", nil, bufnr)
 
-    -- fzf.lua
-    u.buf_map("n", "gr", ":LspRefs<CR>", nil, bufnr)
-    u.buf_map("n", "gd", ":LspDefs<CR>", nil, bufnr)
-    u.buf_map("n", "gy", ":LspTypeDefs<CR>", nil, bufnr)
-    u.buf_map("n", "ga", ":LspActions<CR>", nil, bufnr)
+    vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+    vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] =
+      function(_, _, params, client_id, _)
+        local config = { -- your config
+          underline = true,
+          virtual_text = {
+            prefix = "■ ",
+            spacing = 4,
+          },
+          signs = true,
+          update_in_insert = false,
+        }
+        local uri = params.uri
+        local bufnr = vim.uri_to_bufnr(uri)
+
+        if not bufnr then
+          return
+        end
+
+        local diagnostics = params.diagnostics
+
+        for i, v in ipairs(diagnostics) do
+          diagnostics[i].message = string.format("%s: %s", v.source, v.message)
+        end
+
+        vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
+
+        if not vim.api.nvim_buf_is_loaded(bufnr) then
+          return
+        end
+
+        vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
+      end
 
     if client.resolved_capabilities.document_formatting then
         u.buf_augroup("LspFormatOnSave", "BufWritePre", "lua vim.lsp.buf.formatting_sync()")
@@ -65,4 +109,3 @@ local on_attach = function(client, bufnr)
 end
 
 tsserver.setup(on_attach)
-null_ls.setup(on_attach)
