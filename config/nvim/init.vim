@@ -40,9 +40,10 @@ Plug 'easymotion/vim-easymotion'
 Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
@@ -58,6 +59,11 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
 Plug 'wesQ3/vim-windowswap'
+
+Plug 'folke/trouble.nvim'
+Plug 'navarasu/onedark.nvim'
+Plug 'marko-cerovac/material.nvim'
+Plug 'EdenEast/nightfox.nvim'
 
 " Initialize plugin system
 call plug#end()
@@ -213,7 +219,7 @@ endif
 
 let g:jsx_ext_required = 0
 " }}}
-" UI Related Shit {{{
+" UI Related Shit / Theme {{{
 set splitright              " Puts new vsplit windows to the right of the current
 set splitbelow              " Puts new split windows to the bottom of the current
 
@@ -229,15 +235,42 @@ set t_Co=256
 set background=dark         " Assume a dark background
 "colorscheme molokai
 "colorscheme hybrid_reverse
-"let g:neodark#background = '#5f5a63'
-let g:neodark#terminal_transparent = 1 " default: 0
-colorscheme neodark
 "colorscheme solarized
+
+"Neodark settings
+"let g:neodark#background = '#5f5a63'
+"let g:neodark#terminal_transparent = 1 " default: 0
+"colorscheme neodark
+
+"Material
+"let g:material_style = 'Oceanic'
+"let g:material_disable_background = 1
+"colorscheme material
+
+"OneDark
+"let g:onedark_transparent_background = 1
+"colorscheme onedark
+
+"NightFox
+"https://github.com/EdenEast/nightfox.nvim
+let g:nightfox_transparent = 1
+let g:nightfox_italic_keywords = 1
+let g:nightfox_style = "nordfox"
+lua << EOF
+vim.g.nightfox_colors = {
+  red = "#FFCCCB",
+}
+EOF
+
+colorscheme nightfox
+
+
+"Cursorline
 set cursorline
 let g:airline_theme = "bubblegum"
 set colorcolumn=80
-highlight CursorLine ctermbg=238
-highlight ColorColumn ctermbg=238 guibg=#CCCCCC
+highlight CursorLine ctermbg=238 guibg=#444555
+highlight ColorColumn ctermbg=238 guibg=#444555
 " }}}
 " Clipboard stuff {{{
 " ------- Do some stupid shit w/ clipboard that
@@ -308,6 +341,8 @@ nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
 lua << EOF
 --require("lsp-config")
 _G.global = {}
+require("devicons")
+require("trouble-plugin")
 require("lsp")
 require("compe-config")
 require("treesitter-config")

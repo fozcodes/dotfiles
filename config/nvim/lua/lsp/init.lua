@@ -2,47 +2,11 @@ local u = require("utils")
 local null_ls = require("lsp.null-ls")
 local tsserver = require("lsp.tsserver")
 
-local api = vim.api
-local lsp = vim.lsp
-
-lsp.handlers["textDocument/publishDiagnostics"] = lsp.with(lsp.diagnostic.on_publish_diagnostics, {
-    underline = true,
-    signs = true,
-    virtual_text = false,
-})
-
-local popup_opts = { border = "single", focusable = false }
-
-lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, popup_opts)
-lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, popup_opts)
-
-local go_to_diagnostic = function(pos)
-    return pos and api.nvim_win_set_cursor(0, { pos[1] + 1, pos[2] })
-end
-
-local next_diagnostic = function()
-    go_to_diagnostic(lsp.diagnostic.get_next_pos() or lsp.diagnostic.get_prev_pos())
-end
-
-local prev_diagnostic = function()
-    go_to_diagnostic(lsp.diagnostic.get_prev_pos() or lsp.diagnostic.get_next_pos())
-end
+-- https://neovim.io/doc/user/api.html#nvim_open_win()
+local popup_opts = { border = "rounded", focusable = false, margin = {10,10,10,10}}
 
 _G.global.lsp = {
     popup_opts = popup_opts,
-    next_diagnostic = next_diagnostic,
-    prev_diagnostic = prev_diagnostic,
-}
-
-local border = {
-    {"🭽", "FloatBorder"},
-    {"▔", "FloatBorder"},
-    {"🭾", "FloatBorder"},
-    {"▕", "FloatBorder"},
-    {"🭿", "FloatBorder"},
-    {"▁", "FloatBorder"},
-    {"🭼", "FloatBorder"},
-    {"▏", "FloatBorder"},
 }
 
 local on_attach = function(client, bufnr)
@@ -67,41 +31,23 @@ local on_attach = function(client, bufnr)
     u.buf_map("n", "]a", ":LspDiagNext<CR>", nil, bufnr)
     u.buf_map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", nil, bufnr)
 
-    vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+    vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = "rounded", margin = {1,10,1,10}})
     vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
+    -- Automatically update diagnostics ... from
+    -- https://github.com/folke/dot/blob/master/config/nvim/lua/config/lsp/diagnostics.lua
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+            underline = true,
+            update_in_insert = false,
+            virtual_text = { spacing = 4, prefix = "●" },
+            severity_sort = true,
+        })
 
-    vim.lsp.handlers["textDocument/publishDiagnostics"] =
-      function(_, _, params, client_id, _)
-        local config = { -- your config
-          underline = true,
-          virtual_text = {
-            prefix = "■ ",
-            spacing = 4,
-          },
-          signs = true,
-          update_in_insert = false,
-        }
-        local uri = params.uri
-        local bufnr = vim.uri_to_bufnr(uri)
+    local signs = { Error = " ", Warning = "", Hint = " ", Information = " " }
 
-        if not bufnr then
-          return
-        end
-
-        local diagnostics = params.diagnostics
-
-        for i, v in ipairs(diagnostics) do
-          diagnostics[i].message = string.format("%s: %s", v.source, v.message)
-        end
-
-        vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
-
-        if not vim.api.nvim_buf_is_loaded(bufnr) then
-          return
-        end
-
-        vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
-      end
+    for type, icon in pairs(signs) do
+        local hl = "LspDiagnosticsSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+    end
 
     if client.resolved_capabilities.document_formatting then
         u.buf_augroup("LspFormatOnSave", "BufWritePre", "lua vim.lsp.buf.formatting_sync()")

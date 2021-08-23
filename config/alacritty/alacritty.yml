@@ -72,21 +72,21 @@ scrolling:
 font:
   # Normal (roman) font face
   normal:
-    family: Iosevka Term
+    family: Iosevka Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    style: Light Extended
+    style: Light
 
   # Bold font face
   bold:
-    #family: Fira Code
+    family: Iosevka Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    style: Extended Oblique
+    style: Oblique
 
   # Italic font face
   italic:
-    #family: Fira Code
+    family: Iosevka Nerd Font Mono
     # The `style` can be specified to pick a specific face.
-    style: Extended Italic
+    style: Italic
 
   # Point size
   size: 18.0
@@ -95,7 +95,7 @@ font:
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
   offset:
     x: 0
-    y: 4
+    y: 0
 
   # Glyph offset determines the locations of the glyphs within their cells with
   # the default being at the bottom. Increasing `x` moves the glyph to the right,
