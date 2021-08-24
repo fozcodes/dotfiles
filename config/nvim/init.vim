@@ -31,6 +31,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 call plug#begin('~/.nvim/plugged')
 
+Plug 'townk/vim-autoclose'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'altercation/vim-colors-solarized'
 Plug 'bkad/CamelCaseMotion'
@@ -339,13 +340,7 @@ nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
 " }}}
 " LSPs setup {{{
 lua << EOF
---require("lsp-config")
-_G.global = {}
-require("devicons")
-require("trouble-plugin")
-require("lsp")
-require("compe-config")
-require("treesitter-config")
+require("init")
 EOF
 " }}}
 " vim:foldmethod=marker:foldlevel=0
