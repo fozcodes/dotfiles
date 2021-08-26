@@ -15,6 +15,18 @@ asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
 # install elixir
 asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
 
+# install node
+asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.github
+
+# install terraform
+asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.github
+
+# install Lua
+asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
+
+
+#install
+
 # setup fonts
 git clone git@github.com:powerline/fonts.git
 ./fonts/install.sh

@@ -66,6 +66,7 @@ brew install gnupg
 brew install gnutls
 brew install go
 brew install gobject-introspection
+brew install gpg
 brew install graphite2
 brew install graphviz
 brew install grip
@@ -138,8 +139,7 @@ brew install libyaml
 brew install libzip
 brew install little-cms2
 brew install lsd
-brew install lua
-brew install luajit-openresty
+brew install luarocks
 brew install luv
 brew install lzo
 brew install m4
