@@ -17,11 +17,11 @@ M.setup = function(on_attach)
   vim.cmd [[imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
   vim.cmd [[smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
 
-  vim.cmd [[inoremap <silent><expr> <C-Space> compe#complete()]]
-  vim.cmd [[inoremap <silent><expr> <CR> compe#confirm('<CR>')]]
-  vim.cmd [[inoremap <silent><expr> <C-e> compe#close('<C-e>')]]
-  vim.cmd [[inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })]]
-  vim.cmd [[inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })]]
+  --vim.cmd [[inoremap <silent><expr> <C-Space> compe#complete()]]
+  --vim.cmd [[inoremap <silent><expr> <CR> compe#confirm('<CR>')]]
+  --vim.cmd [[inoremap <silent><expr> <C-e> compe#close('<C-e>')]]
+  --vim.cmd [[inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })]]
+  --vim.cmd [[inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })]]
 
   nvim_lsp.elixirls.setup({
     cmd = { path_to_elixirls },

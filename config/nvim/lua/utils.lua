@@ -3,10 +3,8 @@ local uv = vim.loop
 local api = vim.api
 
 local get_map_options = function(custom_options)
-    local options = { noremap = true, silent = true }
-    if custom_options then
-        options = vim.tbl_extend("force", options, custom_options)
-    end
+    local options = {noremap = true, silent = true}
+    if custom_options then options = vim.tbl_extend("force", options, custom_options) end
     return options
 end
 
@@ -30,20 +28,14 @@ M.buf_map = function(mode, target, source, opts, bufnr)
 end
 
 M.for_each = function(tbl, cb)
-    for _, v in ipairs(tbl) do
-        cb(v)
-    end
+    for _, v in ipairs(tbl) do cb(v) end
 end
 
 M.replace = function(str, original, replacement)
     local found, found_end = string.find(str, original, nil, true)
-    if not found then
-        return
-    end
+    if not found then return end
 
-    if str == original then
-        return replacement
-    end
+    if str == original then return replacement end
 
     local first_half = string.sub(str, 0, found - 1)
     local second_half = string.sub(str, found_end + 1)
@@ -71,7 +63,7 @@ M.timer = {
     stop_nano = function()
         print(uv.hrtime() - M.timer.start_time .. " ns")
         M.timer.start_time = nil
-    end,
+    end
 }
 
 M.command = function(name, fn)
@@ -83,21 +75,12 @@ M.lua_command = function(name, fn)
 end
 
 M.augroup = function(name, event, fn, ft)
-    api.nvim_exec(
-        format(
-            [[
+    api.nvim_exec(format([[
     augroup %s
         autocmd!
         autocmd %s %s %s
     augroup END
-    ]],
-            name,
-            event,
-            ft or "*",
-            fn
-        ),
-        false
-    )
+    ]], name, event, ft or "*", fn), false)
 end
 
 M.t = function(str)
@@ -109,20 +92,12 @@ M.input = function(keys, mode)
 end
 
 M.buf_augroup = function(name, event, fn)
-    api.nvim_exec(
-        format(
-            [[
+    api.nvim_exec(format([[
     augroup %s
         autocmd! * <buffer>
         autocmd %s <buffer> %s
     augroup END
-    ]],
-            name,
-            event,
-            fn
-        ),
-        false
-    )
+    ]], name, event, fn), false)
 end
 
 return M
