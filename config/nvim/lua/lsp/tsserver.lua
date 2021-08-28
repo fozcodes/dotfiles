@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-local u = require("utils")
 
 local M = {}
 M.setup = function(on_attach)

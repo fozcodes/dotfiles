@@ -17,15 +17,15 @@ local efm_filetypes = {"elixir", "typescript", "typescriptreact", "javascript", 
 
 local M = {}
 M.setup = function(on_attach)
-    nvim_lsp.efm.setup {
+    nvim_lsp.efm.setup({
         init_options = {documentFormatting = true},
         on_attach = function(client, bufnr)
-            vim.api.nvim_command("au BufWritePost <buffer> lua vim.lsp.buf.formatting_sync()")
+            vim.api.nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
 
             on_attach(client, bufnr)
         end,
         filetypes = efm_filetypes
-    }
+    })
 end
 
 return M

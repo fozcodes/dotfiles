@@ -12,6 +12,14 @@ local popup_opts = {border = "rounded", focusable = false, margin = {10, 10, 10,
 
 _G.global.lsp = {popup_opts = popup_opts}
 
+local virtual_text_prefix = function(client_name)
+    if client_name == "efm" then
+        return "● "
+    else
+        return string.gsub("● $name: ", "%$(%w+)", {name = client_name})
+    end
+end
+
 local on_attach = function(client, bufnr)
     -- commands
     u.lua_command("LspFormatting", "vim.lsp.buf.formatting()")
@@ -19,8 +27,8 @@ local on_attach = function(client, bufnr)
     u.lua_command("LspRename", "vim.lsp.buf.rename()")
     u.lua_command("LspDef", "vim.lsp.buf.definition()")
     u.lua_command("LspDecl", "vim.lsp.buf.declaration()")
-    u.lua_command("LspDiagPrev", "global.lsp.prev_diagnostic()")
-    u.lua_command("LspDiagNext", "global.lsp.next_diagnostic()")
+    u.lua_command("LspDiagPrev", "vim.lsp.prev_diagnostic()")
+    u.lua_command("LspDiagNext", "vim.lsp.next_diagnostic()")
     u.lua_command("LspDiagLine", "vim.lsp.diagnostic.show_line_diagnostics(global.lsp.popup_opts)")
     u.lua_command("LspSignatureHelp", "vim.lsp.buf.signature_help()")
 
@@ -43,7 +51,7 @@ local on_attach = function(client, bufnr)
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
         underline = true,
         update_in_insert = false,
-        virtual_text = {spacing = 4, prefix = string.gsub("● $name: ", "%$(%w+)", {name = client.name})},
+        virtual_text = {spacing = 4, prefix = virtual_text_prefix(client.name)},
         severity_sort = true
     })
 
