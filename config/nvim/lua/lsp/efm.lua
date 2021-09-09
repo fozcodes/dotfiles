@@ -49,7 +49,7 @@ M.setup = function(on_attach)
                 },
                 lua = {
                     {
-                        formatCommand = "lua-format -i --no-keep-simple-function-one-line --no-break-after-operator --column-limit=120 --break-after-table-lb",
+                        formatCommand = "lua-format -i --no-keep-simple-function-one-line --no-break-after-operator --column-limit=100 --break-after-table-lb",
                         formatStdin = true
                     }
                 },

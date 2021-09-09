@@ -21,3 +21,5 @@
 [commit]
 [heroku]
   account = codeguy
+[init]
+	defaultBranch = main

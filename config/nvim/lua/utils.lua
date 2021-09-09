@@ -10,15 +10,28 @@ end
 
 local M = {}
 
+M.functions = {}
+
 M.map = function(mode, target, source, opts)
+    if type(source) == "function" then
+        table.insert(M.functions, source)
+        if opts.expr then
+            source = ([[luaeval('require("utils").execute(%d)')]]):format(#M.functions)
+        else
+            source = ("<cmd>lua require('utils').execute(%d)<cr>"):format(#M.functions)
+        end
+    end
     api.nvim_set_keymap(mode, target, source, get_map_options(opts))
 end
+
 M.nmap = function(...)
     M.map("n", ...)
 end
+
 M.omap = function(...)
     M.map("o", ...)
 end
+
 M.imap = function(...)
     M.map("i", ...)
 end

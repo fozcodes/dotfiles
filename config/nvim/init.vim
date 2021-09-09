@@ -31,7 +31,6 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 
 call plug#begin('~/.nvim/plugged')
 
-"Plug 'townk/vim-autoclose'
 Plug 'windwp/nvim-autopairs'
 Plug 'KeitaNakamura/neodark.vim'
 Plug 'altercation/vim-colors-solarized'
@@ -39,24 +38,27 @@ Plug 'bkad/CamelCaseMotion'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-vsnip'
-Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'mhinz/vim-startify'
+"Plug 'hrsh7th/nvim-cmp'
+"Plug 'hrsh7th/cmp-buffer'
+"Plug 'hrsh7th/cmp-nvim-lua'
+"Plug 'hrsh7th/cmp-path'
+"Plug 'hrsh7th/cmp-vsnip'
+"Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/nvim-compe'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
 Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'preservim/nerdtree'
+Plug 'vwxyutarooo/nerdtree-devicons-syntax'
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
@@ -304,6 +306,13 @@ let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.beam
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|dist\|build\|*.beam\~$'
 let g:ctrlp_show_hidden = 1
+" }}}
+" NVimTree {{{
+"let g:nvim_tree_width = 20
+
+"nnoremap <C-e> :NvimTreeToggle<CR>
+"nnoremap <S-r> :NvimTreeRefresh<CR>
+"highlight NvimTreeFolderIcon guibg=transparent
 " }}}
 " NERDtree {{{
 let g:NERDShutUp=1
