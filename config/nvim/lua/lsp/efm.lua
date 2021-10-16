@@ -14,12 +14,13 @@ local nvim_lsp = require("lspconfig")
 
 -- Filetypes supported --
 local efm_filetypes = {
-    "elixir", "typescript", "typescriptreact", "javascript", "yaml", "json", "html", "scss", "css", "markdown", "lua"
+    "elixir", "typescript", "typescriptreact", "javascript", "yaml", "json", "html", "scss", "css",
+    "markdown", "lua"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
 local eslint_lint_command = {
-    lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+    lintCommand = "eslint -f unix --stdin --stdin-filename ${INPUT}",
     lintStdin = true,
     lintIgnoreExitCode = true
 }
@@ -27,9 +28,10 @@ local eslint_lint_command = {
 local M = {}
 M.setup = function(on_attach)
     nvim_lsp.efm.setup({
-        init_options = {documentFormatting = true},
+        init_options = {documentFormatting = true, codeAction = true},
         on_attach = function(client, bufnr)
-            vim.api.nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+            vim.api
+                .nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync({}, 1500)")
 
             on_attach(client, bufnr)
         end,

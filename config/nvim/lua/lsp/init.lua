@@ -31,7 +31,8 @@ M.setup = function()
         u.lua_command("LspDecl", "vim.lsp.buf.declaration()")
         u.lua_command("LspDiagPrev", "vim.lsp.prev_diagnostic()")
         u.lua_command("LspDiagNext", "vim.lsp.next_diagnostic()")
-        u.lua_command("LspDiagLine", "vim.lsp.diagnostic.show_line_diagnostics(global.lsp.popup_opts)")
+        u.lua_command("LspDiagLine",
+                      "vim.lsp.diagnostic.show_line_diagnostics(global.lsp.popup_opts)")
         u.lua_command("LspSignatureHelp", "vim.lsp.buf.signature_help()")
 
         u.buf_augroup("LspAutocommands", "CursorHold", "LspDiagLine")
@@ -46,10 +47,12 @@ M.setup = function()
         u.buf_map("n", "]a", ":LspDiagNext<CR>", nil, bufnr)
         u.buf_map("i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>", nil, bufnr)
 
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
-                                                              {border = "rounded", margin = {1, 10, 1, 10}})
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help,
-                                                                      {border = "rounded"})
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+            border = "rounded",
+            margin = {10, 10, 10, 10}
+        })
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, {border = "rounded"})
         -- Automatically update diagnostics ... from
         -- https://github.com/folke/dot/blob/master/config/nvim/lua/config/lsp/diagnostics.lua
         vim.lsp.handlers["textDocument/publishDiagnostics"] =
