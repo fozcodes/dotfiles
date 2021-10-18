@@ -39,6 +39,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
+Plug 'davidoc/taskpaper.vim'
 "Plug 'hrsh7th/nvim-cmp'
 "Plug 'hrsh7th/cmp-buffer'
 "Plug 'hrsh7th/cmp-nvim-lua'
@@ -210,6 +211,7 @@ au! BufNewFile,BufRead *.dig setfiletype yml
 
 " Syntax highlight for spec gauge files
 au! BufNewFile,BufRead *.spec setfiletype markdown
+au! BufNewFile,BufRead *.spec if &ft == 'spec' | set ft=markdown | endif
 
 " Syntax highlight for prettierrc gauge files
 au! BufNewFile,BufRead .prettierrc setfiletype json
