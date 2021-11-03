@@ -67,6 +67,7 @@ brew install gnutls
 brew install go
 brew install gobject-introspection
 brew install gpg
+brew install gnupg2
 brew install graphite2
 brew install graphviz
 brew install grip
