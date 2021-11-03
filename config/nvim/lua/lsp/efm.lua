@@ -15,7 +15,7 @@ local nvim_lsp = require("lspconfig")
 -- Filetypes supported --
 local efm_filetypes = {
     "elixir", "typescript", "typescriptreact", "javascript", "yaml", "json", "html", "scss", "css",
-    "markdown", "lua"
+    "markdown", "lua", "graphql"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
@@ -64,6 +64,7 @@ M.setup = function(on_attach)
                 html = {prettier_format_command},
                 scss = {prettier_format_command},
                 css = {prettier_format_command},
+                graphql = {prettier_format_command},
                 markdown = {prettier_format_command}
             }
         }

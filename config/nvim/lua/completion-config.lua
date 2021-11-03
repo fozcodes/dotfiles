@@ -1,5 +1,5 @@
 local util = require("utils")
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 local M = {}
 M.setup = function()

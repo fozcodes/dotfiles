@@ -77,12 +77,14 @@ M.setup = function()
         properties = {'documentation', 'detail', 'additionalTextEdits'}
     }
 
-    tsserver.setup(on_attach)
-    elixir.setup(on_attach, capabilities)
+    local with_cmp_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+    tsserver.setup(on_attach, with_cmp_capabilities)
+    elixir.setup(on_attach, with_cmp_capabilities)
     efm.setup(on_attach)
-    pyls.setup(on_attach)
-    vue.setup(on_attach)
-    lua.setup(on_attach)
+    pyls.setup(on_attach, with_cmp_capabilities)
+    vue.setup(on_attach, with_cmp_capabilities)
+    lua.setup(on_attach, with_cmp_capabilities)
 end
 
 return M

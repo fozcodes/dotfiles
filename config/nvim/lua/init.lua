@@ -1,8 +1,8 @@
 _G.global = {}
 require("devicons")
 require("trouble-plugin")
--- require("cmp-config")
-require("completion-config").setup()
+require("cmp-config").setup()
+-- require("completion-config").setup()
 
 require("lsp").setup()
 require("treesitter-config")
