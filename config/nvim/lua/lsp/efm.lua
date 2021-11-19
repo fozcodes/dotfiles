@@ -30,8 +30,15 @@ M.setup = function(on_attach)
     nvim_lsp.efm.setup({
         init_options = {documentFormatting = true, codeAction = true},
         on_attach = function(client, bufnr)
-            vim.api
-                .nvim_command("au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync({}, 1500)")
+            if vim.bo.filetype == "elixir" then
+                client.resolved_capabilities.document_formatting = false
+                vim.api.nvim_command(
+                    "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync({}, 1500)")
+            else
+                vim.api.nvim_command(
+                    "au BufWritePre <buffer> lua vim.lsp.buf.formatting_sync({}, 1500)")
+
+            end
 
             on_attach(client, bufnr)
         end,
@@ -41,7 +48,7 @@ M.setup = function(on_attach)
             lintDebounce = "0.3s",
             languages = {
                 elixir = {
-                    {formatCommand = "mix format - ${INPUT}", formatStdin = true}, {
+                    {
                         lintCommand = "MIX_ENV=test mix credo suggest --format=flycheck --read-from-stdin ${INPUT}",
                         lintStdin = true,
                         lintIgnoreExitCode = true,

@@ -9,7 +9,7 @@ M.setup = function(on_attach, capabilities)
             on_attach(client, bufnr)
         end,
         capabilities = capabilities,
-        settings = {configurationSources = {"flake8"}, formatCommand = {"black"}}
+        settings = {configurationSources = {"flake8", "mypy"}, formatCommand = {"black"}}
     }
 
 end
