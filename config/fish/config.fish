@@ -58,14 +58,13 @@ set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 # ASDF
 source $HOME/.asdf/asdf.fish
 source $HOME/.asdf/completions/asdf.fish
-#Python ASDF Fix for OSX 11
-set -x ASDF_PYTHON_PATCH_URL "https://github.com/python/cpython/commit/8ea6353.patch?full_index=1"
-set -x ASDF_PYTHON_PATCHES_DIRECTORY /tmp
 
 # starship
 if type -q starship
   starship init fish | source
 end
+
+direnv hook fish | source
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`

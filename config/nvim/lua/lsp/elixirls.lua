@@ -33,6 +33,7 @@ M.setup = function(on_attach, capabilities)
         cmd = {path_to_elixirls},
         capabilities = capabilities,
         on_attach = function(client, bufnr)
+
             on_attach(client, bufnr)
             elixir_on_attach(client, bufnr)
         end,

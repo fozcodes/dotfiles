@@ -173,8 +173,6 @@ brew install pinentry
 brew install pixman
 brew install pkg-config
 brew install postgresql
-brew install pyenv
-brew install pyenv-virtualenv
 brew install pyright
 brew install rav1e
 brew install rcm

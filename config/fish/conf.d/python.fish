@@ -1,7 +1,14 @@
 ####### PYTHON #######
 
-#set python pretty print on everywhere
+#set python pretty print on everywhere... even though it only works sometimes
 set -x TBVACCINE 1
+
+set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib"
+set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include"
+set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/sqlite/lib"
+set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/sqlite/include"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig"
+set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfig"
 
 # Function to get all the pyls stuff so language server halp
 function pylspsetup
@@ -47,20 +54,3 @@ function cd --description 'change directory - fish overload'
   end  # while
 end  # function
 
-eval (direnv hook fish)
-
-# pyenv
-if type -q pyenv
-  status --is-interactive; and source (pyenv init -|psub)
-  status --is-interactive; and source (pyenv virtualenv-init -|psub)
-  #set -x CPPFLAGS "-L(xcrun --show-sdk-path)/usr/include -L(brew --prefix bzip2)/include"
-  #set -x LDFLAGS "-L(brew --prefix libressl)/lib -L(brew --prefix readline)/lib -L(brew --prefix zlib)/lib -L(brew --prefix bzip2)/lib"
-  #set -x CFLAGS "-I(brew --prefix libressl)/include -I(brew --prefix bzip2)/include -I(brew --prefix readline)/include -I(xcrun --show-sdk-path)/usr/include"
-
-  set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib"
-  set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include"
-  set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/sqlite/lib"
-  set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/sqlite/include"
-  set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig"
-  set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfig"
-end
