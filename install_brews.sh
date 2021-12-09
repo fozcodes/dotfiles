@@ -86,6 +86,7 @@ brew install jasper
 brew install jemalloc
 brew install jpeg
 brew install jq
+brew install kitty
 brew install krb5
 brew install krisp
 brew install lame
