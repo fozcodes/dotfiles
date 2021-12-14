@@ -7,42 +7,81 @@ set title                   " Put title in terminal window
 set exrc
 set secure
 set backupcopy=yes
+set viminfo+=n~/.nvim/viminfo
 " }}}
 " Plugins {{{
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Setup Plug
+" manually added file to local/nvim/autoload/plug.vim
+" Might need to update manually too
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
 
-Plugin 'VundleVim/Vundle.vim'
+" Install vim-plug if not found
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-Plugin 'AutoClose'
-Plugin 'bkad/CamelCaseMotion'
-Plugin 'KeitaNakamura/neodark.vim'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlp.vim'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'kristijanhusak/vim-hybrid-material'
-Plugin 'mbbill/undotree'
-Plugin 'mxw/vim-jsx'
-Plugin 'roman/golden-ratio'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-liquid'
-Plugin 'tpope/vim-obsession'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'triglav/vim-visual-increment'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'w0ng/vim-hybrid'
-Plugin 'w0rp/ale'
-Plugin 'wesQ3/vim-windowswap'
-call vundle#end()
-" }}}
-" Polyglot {{{
-let g:polyglot_disabled=['coffee-script']
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+\| endif
+
+call plug#begin('~/.nvim/plugged')
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'windwp/nvim-autopairs'
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bkad/CamelCaseMotion'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'mhinz/vim-startify'
+Plug 'davidoc/taskpaper.vim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+"Plug 'hrsh7th/cmp-vsnip'
+"Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+"Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'kristijanhusak/vim-hybrid-material'
+"To get this working you need to install a nerd font or patch an existing font
+"with the nerdfont font-patcher: https://github.com/ryanoasis/nerd-fonts
+"Clone the entire repo to get the script working
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mbbill/undotree'
+Plug 'mxw/vim-jsx'
+Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'preservim/nerdtree'
+Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+Plug 'roman/golden-ratio'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'triglav/vim-visual-increment' " This guy lets you increment numbers under visual highlight
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0ng/vim-hybrid'
+Plug 'wesQ3/vim-windowswap'
+Plug 'b4b4r07/vim-sqlfmt'
+
+Plug 'folke/trouble.nvim'
+Plug 'navarasu/onedark.nvim'
+Plug 'marko-cerovac/material.nvim'
+Plug 'EdenEast/nightfox.nvim'
+
+" Initialize plugin system
+call plug#end()
 " }}}
 " Misc {{{
 set ttyfast                     " faster redraw
@@ -60,41 +99,42 @@ map <CR> :nohl<cr>
 " http://stackoverflow.com/questions/4331776/change-vim-swap-backup-undo-file-name/9528322#9528322
 " Save your backups to a less annoying place than the current directory.
 " If you have .vim-backup in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/backup or . if all else fails.
-if isdirectory($HOME . '/.vim/backup') == 0
-  :silent !mkdir -p ~/.vim/backup >/dev/null 2>&1
+" Otherwise it saves it to ~/.nvim/backup or . if all else fails.
+"
+if isdirectory($HOME . '/.nvim/backup') == 0
+  :silent !mkdir -p ~/.nvim/backup >/dev/null 2>&1
 endif
 set backupdir-=.
+set backupdir-=./.nvim-backup/
 set backupdir+=.
 set backupdir-=~/
-set backupdir^=~/.vim/backup/
-set backupdir^=./.vim-backup/
+set backupdir^=~/.nvim/backup/
 set backup
 
 " Save your swp files to a less annoying place than the current directory.
 " If you have .vim-swap in the current directory, it'll use that.
-" Otherwise it saves it to ~/.vim/swap, ~/tmp or .
-if isdirectory($HOME . '/.vim/swap') == 0
-  :silent !mkdir -p ~/.vim/swap >/dev/null 2>&1
+" Otherwise it saves it to ~/.nvim/swap, ~/tmp or .
+if isdirectory($HOME . '/.nvim/swap') == 0
+  :silent !mkdir -p ~/.nvim/swap >/dev/null 2>&1
 endif
-set directory=./.vim-swap//
-set directory+=~/.vim/swap//
+set directory=./.nvim-swap//
+set directory+=~/.nvim/swap//
 set directory+=~/tmp//
 set directory+=.
 
 " viminfo stores the the state of your previous editing session
-set viminfo+=n~/.vim/viminfo
+set viminfo+=n~/.nvim/viminfo
 
 if exists("+undofile")
   " undofile - This allows you to use undos after exiting and restarting
-  " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+  " This, like swap and backups, uses .nvim-undo first, then ~/.nvim/undo
   " :help undo-persistence
-  " This is only present in 7.3+
-  if isdirectory($HOME . '/.vim/undo') == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  " I copied this from my vimrc, no idea if this is an issue in nvim
+  if isdirectory($HOME . '/.nvim/undo') == 0
+    :silent !mkdir -p ~/.nvim/undo > /dev/null 2>&1
   endif
-  set undodir=./.vim-undo//
-  set undodir+=~/.vim/undo//
+  set undodir=./.nvim-undo//
+  set undodir+=~/.nvim/undo//
   set undofile
 endif
 " }}}
@@ -118,16 +158,14 @@ set tags=tags;/
 " Leader Shortcuts {{{
 let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
-noremap <leader>c2s :call CamelToSnake()<CR>
-noremap <leader>c2s :call SnakeToCamel()<CR>
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
 nmap <leader>pry orequire IEx; IEx.pry<esc>
 " }}}
 " Folding {{{
 set foldenable
-set foldmethod=indent
 set foldnestmax=10      " 10 nested fold max
 set foldlevelstart=10   " open most folds by default
+set foldmethod=indent
 " space open/closes folds
 nnoremap <space> za
 " }}}
@@ -152,47 +190,11 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
-
-function! CamelToSnake()
-  s#\(\<\u\l\+\|\l\+\)\(\u\)#\l\1_\l\2#g
-endfunction
-
-function! SnakeToCamel()
-  s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
-endfunction
-
-
-"function! Clevertab()
-  "if pumvisible()
-    "return "\<c-n>"
-  "endif
-  "let substr = strpart(getline('.'), 0, col('.') - 1)
-  "let substr = matchstr(substr, '[^ \t]*$')
-  "if strlen(substr) == 0
-    "" nothing to match on empty string
-    "return "\<tab>"
-  "else
-    "" existing text matching
-    "if neosnippet#expandable_or_jumpable()
-      "return "\<plug>(neosnippet_expand_or_jump)"
-    "else
-      "return neocomplete#start_manual_complete()
-    "endif
-  "endif
-"endfunction
-
-"function! CleverCr()
-  "if pumvisible()
-    "return "\<esc>a"
-  "else
-    "return "\<Enter>"
-  "endif
-"endfunction
 " }}}
 " Formatting {{{
 set nowrap                      " Do not wrap long lines
 " Remove trailing whitespaces and ^M chars
-autocmd FileType c,cpp,css,eelixir,elixir,groovy,html,java,go,liquid,markdown,markdown.spec,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,sh,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+autocmd FileType c,cpp,css,eelixir,elixir,groovy,heex,html,java,go,leex,liquid,lua,markdown,markdown.spec,php,purescript,javascript,jsx,json,puppet,python,rust,ruby,scss,sh,stylus,twig,xml,yml,perl,sql,md,ts,typescript,terraform,vcl,yml,yaml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 "autocmd FileType go autocmd BufWritePre <buffer> Fmt
 autocmd FileType haskell,puppet,purs,ruby,yml,javascript,elixir setlocal expandtab shiftwidth=2 softtabstop=2
 " preceding line best in a plugin but here for now.
@@ -213,6 +215,7 @@ au! BufNewFile,BufRead *.dig setfiletype yml
 
 " Syntax highlight for spec gauge files
 au! BufNewFile,BufRead *.spec setfiletype markdown
+au! BufNewFile,BufRead *.spec if &ft == 'spec' | set ft=markdown | endif
 
 " Syntax highlight for prettierrc gauge files
 au! BufNewFile,BufRead .prettierrc setfiletype json
@@ -231,11 +234,7 @@ endif
 
 let g:jsx_ext_required = 0
 " }}}
-" Turn off spell check cause I spel gud {{{
-set nospell
-autocmd BufRead,BufNewFile *.md setlocal spell " Except MD files...can't spell
-" }}}
-" UI Related Shit {{{
+" UI Related Shit / Theme {{{
 set splitright              " Puts new vsplit windows to the right of the current
 set splitbelow              " Puts new split windows to the bottom of the current
 
@@ -251,15 +250,42 @@ set t_Co=256
 set background=dark         " Assume a dark background
 "colorscheme molokai
 "colorscheme hybrid_reverse
-"let g:neodark#background = '#5f5a63'
-let g:neodark#terminal_transparent = 1 " default: 0
-colorscheme neodark
 "colorscheme solarized
+
+"Neodark settings
+"let g:neodark#background = '#5f5a63'
+"let g:neodark#terminal_transparent = 1 " default: 0
+"colorscheme neodark
+
+"Material
+"let g:material_style = 'Oceanic'
+"let g:material_disable_background = 1
+"colorscheme material
+
+"OneDark
+"let g:onedark_transparent_background = 1
+"colorscheme onedark
+
+"NightFox
+"https://github.com/EdenEast/nightfox.nvim
+let g:nightfox_transparent = 1
+let g:nightfox_italic_keywords = 1
+let g:nightfox_style = "nordfox"
+lua << EOF
+vim.g.nightfox_colors = {
+  red = "#FFCCCB",
+}
+EOF
+
+colorscheme nightfox
+
+
+"Cursorline
 set cursorline
 let g:airline_theme = "bubblegum"
 set colorcolumn=80
-highlight CursorLine ctermbg=238
-highlight ColorColumn ctermbg=238 guibg=#CCCCCC
+highlight CursorLine ctermbg=238 guibg=#444555
+highlight ColorColumn ctermbg=238 guibg=#444555
 " }}}
 " Clipboard stuff {{{
 " ------- Do some stupid shit w/ clipboard that
@@ -280,13 +306,20 @@ inoremap (<CR> (<CR>)<C-o>==<C-o>O
 inoremap [<CR> [<CR>]<C-o>==<C-o>O
 imap {{ {{}}<Esc>hi
 " }}}
+" EasyMotion {{{
+let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
+" }}}
 " Ctrl P {{{
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.beam
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|_build\|output\|dist\|build\|*.beam\~$'
 let g:ctrlp_show_hidden = 1
 " }}}
-" EasyMotion {{{
-let g:EasyMotion_keys ='abcdefghijklmnopqrstuvwxyz;'
+" NVimTree {{{
+"let g:nvim_tree_width = 20
+
+"nnoremap <C-e> :NvimTreeToggle<CR>
+"nnoremap <S-r> :NvimTreeRefresh<CR>
+"highlight NvimTreeFolderIcon guibg=transparent
 " }}}
 " NERDtree {{{
 let g:NERDShutUp=1
@@ -300,7 +333,6 @@ let NERDTreeChDirMode=0
 let NERDTreeMouseMode=0
 let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
-
 " }}}
 " Undotree {{{
 map <leader><leader>u :UndotreeToggle<CR>
@@ -318,104 +350,22 @@ nnoremap <leader>div :-1read $HOME/.vim.snippets/.div.html<CR>eebl
 nnoremap <leader>divwc :-1read $HOME/.vim.snippets/.div_with_class.html<CR>eeeh
 
 " }}}
-" Register Py Language Server {{{
-if executable('pyls')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'pyls',
-        \ 'cmd': {server_info->['pyls']},
-        \ 'whitelist': ['python'],
-        \ })
-endif
-"}}}
-" Ale {{{
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
-let g:ale_echo_msg_format = '%linter% says %s'
-let g:ale_lint_on_text_changed = 0
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_insert_leave = 1
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-
-let g:ale_linters = {}
-let g:ale_linters.typescript = ['tsserver', 'tslint', 'eslint']
-let g:ale_linters.javascript = ['eslint']
-let g:ale_linters.elixir = ['elixir-ls', 'credo']
-let g:ale_linters.python = ['pylsp', 'mypy', 'flake8', 'isort']
-let g:ale_linters.ruby = ['rubocop', 'ruby', 'solargraph']
-let g:ale_linters.vue = ['vls', 'eslint']
-
-
-function! FormatGauge(buffer) abort
-    return {
-    \   'command': './node_modules/.bin/gauge format --stdin'
-    \}
-endfunction
-
-execute ale#fix#registry#Add('gauge', 'FormatGauge', ['spec'], 'format guage spec files')
-
-" You can now use it in g:ale_fixers
-let g:ale_fixers = {
-  \ 'spec': ['gauge']
-  \}
-
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fixers.css = ['prettier']
-let g:ale_fixers.elixir = ['mix_format']
-let g:ale_fixers.elm = ['format']
-let g:ale_fixers.graphql = ['prettier']
-let g:ale_fixers.html = ['prettier']
-let g:ale_fixers.javascript = ['prettier']
-let g:ale_fixers.json = ['prettier']
-let g:ale_fixers.markdown = ['prettier']
-let g:ale_fixers.python = ['black', 'isort']
-let g:ale_fixers.scss = ['prettier']
-let g:ale_fixers.sql = ['prettier']
-let g:ale_fixers.typescript = ['prettier']
-let g:ale_fixers.typescriptreact = ['prettier']
-let g:ale_fixers.vue = ['prettier']
-let g:ale_fixers.yaml = ['prettier']
-
-let g:ale_elixir_elixir_ls_release = '/Users/foz/.elixir/elixir-ls/rel'
-let g:ale_elixir_elixir_ls_config = {
-\   'elixirLS': {
-\     'dialyzerEnabled': v:false,
-\   },
-\}
-let g:ale_fix_on_save = 1
-let g:ale_javascript_prettier_use_local_config = 1
-" Disable auto-detection of virtualenvironments python
-" Environment variable ${VIRTUAL_ENV} is always used
-"let g:ale_virtualenv_dir_names = []
-let g:ale_python_mypy_options = '--config-file .mypy.ini'
-let g:ale_python_pyls_config = {
-\   'pyls': {
-\     'plugins': {
-\       'pycodestyle': {
-\         'enabled': v:false
-\       }
-\     }
-\   },
-\ }
-
-
-let g:ale_completion_enabled = 1
-nmap <silent> <leader>at :ALEToggleBuffer<CR><CR>
-nmap <silent> <C-]> :ALEGoToDefinition<cr>
-nmap <silent> <leader>h :ALEDetail<CR>
-" }}}
 " Window Swap {{{
 let g:windowswap_map_keys = 0 "prevent default bindings
 nnoremap <silent> <leader>yw :call WindowSwap#MarkWindowSwap()<CR>
 nnoremap <silent> <leader>pw :call WindowSwap#DoWindowSwap()<CR>
 nnoremap <silent> <leader>ew :call WindowSwap#EasyWindowSwap()<CR>
 " }}}
-" CamelCaseMotion (underscores) {{{
-call camelcasemotion#CreateMotionMappings('<leader>')
-" }}}
 " Vim Obsession (underscores) {{{
-autocmd VimEnter * Obsess ~/.vim/sessions/
+"autocmd VimEnter * Obsess ~/.vim/sessions/
 " }}}
-set modelines=1
+" SQL Formatting {{{
+let g:sqlfmt_command = "sqlfmt"
+let g:sqlfmt_options = ""
+" }}}
+" LSPs setup {{{
+lua << EOF
+require("init")
+EOF
+" }}}
 " vim:foldmethod=marker:foldlevel=0

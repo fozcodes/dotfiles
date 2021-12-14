@@ -1,9 +1,12 @@
+###### IMPORTANT - Remember files in ./conf.d are loaded automagically #########
 function fish_right_prompt
-  set_color $fish_color_autosuggestion ^/dev/null; or set_color 555
+  set_color $fish_color_autosuggestion; or set_color 555
   date "+%H:%M:%S"
   set_color normal
 end
 
+
+set PATH /usr/local/opt/make/libexec/gnubin $PATH
 
 # aliases
 
@@ -20,7 +23,6 @@ alias grep="grep --color --exclude=\"*/coverage/*\" --exclude=\"*.git/*\""
 alias la="lsd -la"
 alias mkdir="mkdir -p"
 alias npmi="npm install"
-alias psqlapp="'/Applications/Postgres.app/Contents/Versions/9.5/bin'/psql -p5432"
 alias rcup="env RCRC=~/.dotfiles/.rcrc rcup"
 alias rst="touch tmp/restart.txt"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
@@ -53,20 +55,16 @@ set -x FZF_DEFAULT_COMMAND "rg --files"
 # set iex/erlang history var
 set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 
-#set python pretty print on everywhere
-set -x TBVACCINE 1
-
 # ASDF
 source $HOME/.asdf/asdf.fish
 source $HOME/.asdf/completions/asdf.fish
 
-eval (direnv hook fish)
+# starship
+if type -q starship
+  starship init fish | source
+end
 
-starship init fish | source
-
-# pyenv
-status --is-interactive; and source (pyenv init -|psub)
-status --is-interactive; and source (pyenv virtualenv-init -|psub)
+direnv hook fish | source
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -74,11 +72,9 @@ status --is-interactive; and source (pyenv virtualenv-init -|psub)
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
+
 # Ooof. SSL issues.
 set -g fish_user_paths "/usr/local/opt/libressl/bin" "/Users/foz/.bin" $fish_user_paths
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc' ]; . '/Users/foz/Downloads/google-cloud-sdk/path.fish.inc'; end
 
 set -g -x "CLOUDSDK_PYTHON" "/usr/local/opt/python@3.8/libexec/bin/python"
 source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
