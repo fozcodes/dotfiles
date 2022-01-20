@@ -1,21 +1,11 @@
 local nvim_lsp = require("lspconfig")
 
 -- efm-langserver language modules--
--- mixformat | testing only --
--- local mixformat = {
--- formatCommand = 'mix format -',
--- formatStdin = true
--- }
-
--- efm-langserver languages settings --
--- local efm_languages = {
--- elixir = { mixformat }
--- }
 
 -- Filetypes supported --
 local efm_filetypes = {
     "elixir", "typescript", "typescriptreact", "javascript", "yaml", "json", "html", "scss", "css",
-    "markdown", "lua", "graphql"
+    "markdown", "lua", "graphql", "python"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
@@ -61,6 +51,14 @@ M.setup = function(on_attach)
                         formatCommand = "lua-format -i --no-keep-simple-function-one-line --no-break-after-operator --column-limit=100 --break-after-table-lb",
                         formatStdin = true
                     }
+                },
+                python = {
+                    {
+                        lintCommand = "flake8 --config (find_up .flake8) --stdin-display-name ${INPUT} -",
+                        lintStdin = true,
+                        lintIgnoreExitCode = true
+                    }, {formatCommand = "black --quiet -", formatStdin = true},
+                    {formatCommand = "isort --quiet -", formatStdin = true}
                 },
                 typescript = {prettier_format_command, eslint_lint_command},
                 javascript = {prettier_format_command, eslint_lint_command},

@@ -49,6 +49,24 @@ function phnew
   mix phoenix.new $argv; and cd $argv
 end
 
+function find_up
+  set -l filename $argv
+  set -l cwd (pwd)
+  set -l dir (pwd)
+
+  while not test "$dir" = '/'
+    set version_file "$dir/$filename"
+
+    if test -f "$version_file"
+      echo $version_file; and break
+    end
+
+    builtin cd $dir/..
+    set dir (pwd)
+  end
+  builtin cd $cwd
+end
+
 set -x FZF_DEFAULT_OPTS "--height 50% --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 set -x FZF_DEFAULT_COMMAND "rg --files"
 
