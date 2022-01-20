@@ -63,7 +63,13 @@ M.setup = function()
                 severity_sort = true
             })
 
-        local signs = {Error = " ", Warning = " ", Hint = " ", Information = " "}
+        local signs = {
+            Error = " ",
+            Warning = " ",
+            Warn = " ",
+            Hint = " ",
+            Information = " "
+        }
 
         for type, icon in pairs(signs) do
             local hl = "DiagnosticSign" .. type
