@@ -31,8 +31,7 @@ M.setup = function()
         u.lua_command("LspDecl", "vim.lsp.buf.declaration()")
         u.lua_command("LspDiagPrev", "vim.lsp.prev_diagnostic()")
         u.lua_command("LspDiagNext", "vim.lsp.next_diagnostic()")
-        u.lua_command("LspDiagLine",
-                      "vim.lsp.diagnostic.show_line_diagnostics(global.lsp.popup_opts)")
+        u.lua_command("LspDiagLine", "vim.diagnostic.open_float(global.lsp.popup_opts)")
         u.lua_command("LspSignatureHelp", "vim.lsp.buf.signature_help()")
 
         u.buf_augroup("LspAutocommands", "CursorHold", "LspDiagLine")

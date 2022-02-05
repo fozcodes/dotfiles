@@ -268,16 +268,33 @@ set background=dark         " Assume a dark background
 
 "NightFox
 "https://github.com/EdenEast/nightfox.nvim
-let g:nightfox_transparent = 1
-let g:nightfox_italic_keywords = 1
-let g:nightfox_style = "nordfox"
+"let g:nightfox_transparent = 1
+"let g:nightfox_italic_keywords = 1
+"let g:nightfox_style = nordfox
+colorscheme nightfox
 lua << EOF
-vim.g.nightfox_colors = {
-  red = "#FFCCCB",
-}
+local nightfox = require('nightfox')
+
+-- This function set the configuration of nightfox. If a value is not passed in the setup function
+-- it will be taken from the default configuration above
+nightfox.setup({
+    fox = "dayfox",
+    transparent = true,
+    italic_keywords = true,
+    terminal_colors = true,
+    styles = {
+        functions = "italic,bold" -- styles can be a comma separated list
+    },
+    inverse = {
+        match_paren = true -- inverse the highlighting of match_parens
+    },
+    colors = {
+        red = "#FFCCCB" -- Override the red color for MAX POWER
+    }
+})
+nightfox.load("nordfox")
 EOF
 
-colorscheme nightfox
 
 
 "Cursorline
