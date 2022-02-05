@@ -1,11 +1,14 @@
 local nvim_lsp = require("lspconfig")
+local util = require('lspconfig/util')
+
+local path = util.path
 
 -- efm-langserver language modules--
 
 -- Filetypes supported --
 local efm_filetypes = {
-    "elixir", "typescript", "typescriptreact", "javascript", "yaml", "json", "html", "scss", "css",
-    "markdown", "lua", "graphql", "python"
+    "elixir", "typescript", "typescriptreact", "javascript", "javascript.jsx", "jsx", "yaml",
+    "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
@@ -15,10 +18,42 @@ local eslint_lint_command = {
     lintIgnoreExitCode = true
 }
 
+local function get_python_command_path(workspace, command)
+    -- Use activated virtualenv.
+    if vim.env.VIRTUAL_ENV then return path.join(vim.env.VIRTUAL_ENV, 'bin', command) end
+
+    -- Find and use virtualenv in workspace directory.
+    for _, pattern in ipairs({'*', '.*'}) do
+        local match = vim.fn.glob(path.join(workspace, pattern, 'pyvenv.cfg'))
+        if match ~= '' then return path.join(path.dirname(match), 'bin', command) end
+    end
+
+    -- Fallback to system Python.
+    return command
+end
+
 local M = {}
 M.setup = function(on_attach)
     nvim_lsp.efm.setup({
         init_options = {documentFormatting = true, codeAction = true},
+        before_init = function(_, config)
+
+            config.settings.languages.python = {
+                {
+                    lintCommand = get_python_command_path(config.root_dir, 'flake8')
+                        .. " --config (find_up .flake8) --stdin-display-name ${INPUT} -",
+                    lintStdin = true,
+                    lintIgnoreExitCode = true
+                }, {
+                    formatCommand = get_python_command_path(config.root_dir, 'black') .. " --quiet -",
+                    formatStdin = true
+                }, {
+                    formatCommand = get_python_command_path(config.root_dir, 'isort') .. " --quiet -",
+                    formatStdin = true
+                }
+            }
+
+        end,
         on_attach = function(client, bufnr)
             if vim.bo.filetype == "elixir" then
                 client.resolved_capabilities.document_formatting = false
@@ -52,16 +87,10 @@ M.setup = function(on_attach)
                         formatStdin = true
                     }
                 },
-                python = {
-                    {
-                        lintCommand = "flake8 --config (find_up .flake8) --stdin-display-name ${INPUT} -",
-                        lintStdin = true,
-                        lintIgnoreExitCode = true
-                    }, {formatCommand = "black --quiet -", formatStdin = true},
-                    {formatCommand = "isort --quiet -", formatStdin = true}
-                },
+                -- sql = {{formatCommand = "sql-lint --fix ${INPUT}", formatStdin = true}},
                 typescript = {prettier_format_command, eslint_lint_command},
                 javascript = {prettier_format_command, eslint_lint_command},
+                ["javascript.jsx"] = {prettier_format_command, eslint_lint_command},
                 typescriptreact = {prettier_format_command, eslint_lint_command},
                 javascriptreact = {prettier_format_command, eslint_lint_command},
                 json = {prettier_format_command},
