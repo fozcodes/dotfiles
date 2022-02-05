@@ -10,12 +10,6 @@ set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/sqlite/include"
 set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig"
 set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfig"
 
-# Function to get all the pyls stuff so language server halp
-function pylspsetup
-  pip install --upgrade pip
-  pip install 'python-lsp-server[all]' pyls-flake8 pyls-mypy pyls-isort python-lsp-black
-end
-
 # search for a activate.fish file UP THE DIRECTORY TREE, starting from the current folder.
 # if found, execute it.
 # Intended for automatically switching to the python  virtual environment on entering the
