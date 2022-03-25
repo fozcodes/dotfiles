@@ -203,6 +203,7 @@ autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
 autocmd BufNewFile,BufRead *.scerb set filetype=scss.erb
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd BufNewFile,BufRead *.leex set filetype=eelixir
+autocmd BufNewFile,BufRead .envrc set filetype=bash
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
 " Workaround vim-commentary for Haskell
