@@ -41,6 +41,7 @@ brew install docbook-xsl
 brew install efm-langserver
 brew install exercism
 brew install ffmpeg
+brew install findutils
 brew install fish
 brew install flac
 brew install fontconfig

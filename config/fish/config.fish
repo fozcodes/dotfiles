@@ -7,6 +7,8 @@ end
 
 
 set PATH /usr/local/opt/make/libexec/gnubin $PATH
+set PATH /usr/local/opt/findutils/libexec/gnubin $PATH
+
 
 # aliases
 
