@@ -226,6 +226,8 @@ au! BufNewFile,BufRead .prettierrc setfiletype json
 "Wrap for Markdown files
 au FileType markdown setlocal textwidth=80
 
+let g:NERDCustomDelimiters = { 'dosini': { 'left': '# ' } }
+
 let g:rubycomplete_buffer_loading = 1
 
 if did_filetype()
