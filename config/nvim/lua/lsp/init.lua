@@ -1,11 +1,11 @@
 local u = require("utils")
--- local null_ls = require("lsp.null-ls")
 local tsserver = require("lsp.tsserver")
 local elixir = require("lsp.elixirls")
 local efm = require("lsp.efm")
 local pyright = require("lsp.pyright")
 local vue = require("lsp.vue")
 local lua = require("lsp.lualsp")
+local golang = require("lsp.golang")
 
 -- https://neovim.io/doc/user/api.html#nvim_open_win()
 local popup_opts = {border = "rounded", focusable = false, margin = {10, 10, 10, 10}}
@@ -90,6 +90,7 @@ M.setup = function()
     pyright.setup(on_attach, with_cmp_capabilities)
     vue.setup(on_attach, with_cmp_capabilities)
     lua.setup(on_attach, with_cmp_capabilities)
+    golang.setup(on_attach, with_cmp_capabilities)
 end
 
 return M
