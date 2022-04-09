@@ -37,7 +37,6 @@ M.setup = function(on_attach)
     nvim_lsp.efm.setup({
         init_options = {documentFormatting = true, codeAction = true},
         before_init = function(_, config)
-
             config.settings.languages.python = {
                 {
                     lintCommand = get_python_command_path(config.root_dir, 'flake8')
@@ -45,10 +44,18 @@ M.setup = function(on_attach)
                     lintStdin = true,
                     lintIgnoreExitCode = true
                 }, {
-                    formatCommand = get_python_command_path(config.root_dir, 'black') .. " --quiet -",
-                    formatStdin = true
+                    lintCommand = get_python_command_path(config.root_dir, 'mypy')
+                        .. " --help --show-column-numbers --config-file (find_up .mypy.ini) -C fos -",
+                    lintStdin = true,
+                    lintFormats = {
+                        '%f:%l:%c: %trror: %m', '%f:%l:%c: %tarning: %m', '%f:%l:%c: %tote: %m'
+                    },
+                    lintIgnoreExitCode = true
                 }, {
                     formatCommand = get_python_command_path(config.root_dir, 'isort') .. " --quiet -",
+                    formatStdin = true
+                }, {
+                    formatCommand = get_python_command_path(config.root_dir, 'black') .. " --quiet -",
                     formatStdin = true
                 }
             }
