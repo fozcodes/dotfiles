@@ -150,6 +150,8 @@ set expandtab
 set shiftwidth=2
 
 set nojoinspaces            " Prevents inserting two spaces after punctuation on a join (J)
+
+autocmd FileType go setlocal noexpandtab
 " }}}
 " Commands {{{
 command! MakeTags !ctags -R --exclude=_build .
