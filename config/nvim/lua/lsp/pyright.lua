@@ -27,7 +27,14 @@ M.setup = function(on_attach, capabilities)
             on_attach(client, bufnr)
         end,
         capabilities = capabilities,
-        python = {analysis = {typeCheckingMode = "strict"}}
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = "basic"
+            }
+        }
     }
 
 end
