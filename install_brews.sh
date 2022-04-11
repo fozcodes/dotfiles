@@ -94,6 +94,7 @@ brew install 1password \
  lazydocker \
  leiningen \
  leptonica \
+ less \
  libass \
  libassuan \
  libbluray \
