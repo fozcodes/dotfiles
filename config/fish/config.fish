@@ -30,6 +30,9 @@ alias rst="touch tmp/restart.txt"
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias tl="tmux ls"
 
+# Snowflake cli
+fish_add_path /Applications/SnowSQL.app/Contents/MacOS/
+
 # functions
 function mkdircd
   mkdir -p $argv; and cd $argv

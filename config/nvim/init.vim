@@ -208,6 +208,8 @@ autocmd BufNewFile,BufRead *.leex set filetype=eelixir
 autocmd BufNewFile,BufRead .envrc set filetype=bash
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
 
+autocmd BufNewFile,BufRead */helm*/**/*.yaml set filetype=helm.yaml
+
 " Workaround vim-commentary for Haskell
 autocmd FileType haskell setlocal commentstring=--\ %s
 " Workaround broken colour highlighting in Haskell

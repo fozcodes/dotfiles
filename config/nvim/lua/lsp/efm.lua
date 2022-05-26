@@ -7,8 +7,8 @@ local path = util.path
 
 -- Filetypes supported --
 local efm_filetypes = {
-    "elixir", "typescript", "typescriptreact", "javascript", "javascript.jsx", "jsx", "yaml",
-    "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql"
+    "elixir", "typescript", "typescriptreact", "javascript", "javascript.jsx", "jsx", "helm.yaml",
+    "yaml", "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
@@ -101,6 +101,7 @@ M.setup = function(on_attach)
                 typescriptreact = {prettier_format_command, eslint_lint_command},
                 javascriptreact = {prettier_format_command, eslint_lint_command},
                 json = {prettier_format_command},
+                ["helm.yaml"] = {},
                 yaml = {prettier_format_command},
                 html = {prettier_format_command},
                 scss = {prettier_format_command},
