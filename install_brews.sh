@@ -10,6 +10,10 @@ brew update
 #install cask
 brew tap homebrew/cask
 
+brew tap Goles/battery
+brew tap heroku/brew
+brew tap homebrew/cask-fonts
+
 # install me brews -  the obscure ones are probably for asdf
 brew install 1password \
  1password-cli \
@@ -89,7 +93,6 @@ brew install 1password \
  jq \
  kitty \
  krb5 \
- krisp \
  lame \
  lazydocker \
  leiningen \
@@ -203,7 +206,6 @@ brew install 1password \
  tcptraceroute \
  telnet \
  tesseract \
- themekit \
  theora \
  tidy-html5 \
  tldr \
@@ -235,9 +237,6 @@ brew install 1password \
 
 # Casks
 brew install abstract \
- adobe-acrobat-reader \
- airtable \
- alacritty \
  brave-browser \
  chromedriver \
  controlplane \
@@ -258,21 +257,16 @@ brew install abstract \
  insomnia \
  iterm2 \
  java \
- keybase \
  keycastr \
  kindle \
  licecap \
  macdown \
  mic-drop \
- microsoft-teams \
  ngrok \
- paw \
  postgres \
  postico \
  postman \
  protonvpn \
- send-to-kindle \
- sequel-pro \
  signal \
  sketch \
  slack \
@@ -280,16 +274,12 @@ brew install abstract \
  spotify \
  sqlpro-studio \
  steam \
- stretchly \
  sublime-text \
  tableplus \
- thinkorswim \
  vagrant \
  visual-studio-code \
- vlc \
  whatsapp \
- zeplin \
- zsa-wally
+ homebrew/cask-drivers/zsa-wally
 
 # install ctags after emacs
 brew install --HEAD universal-ctags/universal-ctags/universal-ctags

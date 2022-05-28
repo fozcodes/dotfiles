@@ -5,6 +5,7 @@ function fish_right_prompt
   set_color normal
 end
 
+fish_add_path /opt/homebrew/bin
 
 set PATH /usr/local/opt/make/libexec/gnubin $PATH
 set PATH /usr/local/opt/findutils/libexec/gnubin $PATH

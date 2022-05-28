@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 #install brew and brews
-./install_brews.sh
+#./install_brews.sh
 
 #install asdf for package management
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.3.0
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.0
 
 # install ruby
 asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
@@ -33,8 +33,8 @@ git clone git@github.com:powerline/fonts.git
 rm -rf .fonts
 
 # setup fish
-echo "/usr/local/bin/fish" | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/fish
+echo "/opt/homebrew/bin/fish" | sudo tee -a /etc/shells
+chsh -s /opt/homebrew/bin/fish
 curl -L https://get.oh-my.fish | fish
 omf install agnoster
 omf theme agnoster

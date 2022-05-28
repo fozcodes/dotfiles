@@ -278,13 +278,13 @@ set background=dark         " Assume a dark background
 "let g:nightfox_transparent = 1
 "let g:nightfox_italic_keywords = 1
 "let g:nightfox_style = nordfox
-colorscheme nightfox
 lua << EOF
 local nightfox = require('nightfox')
 
 -- This function set the configuration of nightfox. If a value is not passed in the setup function
 -- it will be taken from the default configuration above
 nightfox.setup({
+  options = {
     fox = "dayfox",
     transparent = true,
     italic_keywords = true,
@@ -298,9 +298,10 @@ nightfox.setup({
     colors = {
         red = "#FFCCCB" -- Override the red color for MAX POWER
     }
+  }
 })
-nightfox.load("nordfox")
 EOF
+colorscheme nightfox
 
 
 
