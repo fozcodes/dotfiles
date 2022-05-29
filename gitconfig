@@ -2,7 +2,7 @@
   ui = true
 [user]
   email = ian.fosbery@reaktor.com
-  name = Ian Fosbery
+	name = fozcodes
 [core]
   editor = nvim
   autocrlf = input
