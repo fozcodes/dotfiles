@@ -5,7 +5,15 @@ function fish_right_prompt
   set_color normal
 end
 
-fish_add_path /opt/homebrew/bin
+set BREW_HOME (brew --prefix)
+
+fish_add_path $HOME/.asdf/shims
+fish_add_path $BREW_HOME/bin
+
+# ASDF
+source $HOME/.asdf/asdf.fish
+source $HOME/.asdf/completions/asdf.fish
+
 
 set PATH /usr/local/opt/make/libexec/gnubin $PATH
 set PATH /usr/local/opt/findutils/libexec/gnubin $PATH
@@ -79,10 +87,6 @@ set -x FZF_DEFAULT_COMMAND "rg --files"
 # set iex/erlang history var
 set -Ux ERL_AFLAGS "-kernel shell_history enabled"
 
-# ASDF
-source $HOME/.asdf/asdf.fish
-source $HOME/.asdf/completions/asdf.fish
-
 # starship
 if type -q starship
   starship init fish | source
@@ -98,7 +102,7 @@ direnv hook fish | source
 [ -f /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /Users/foz/.asdf/installs/nodejs/8.9.4/.npm/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
 
 # Ooof. SSL issues.
-set -g fish_user_paths "/usr/local/opt/libressl/bin" "/Users/foz/.bin" $fish_user_paths
+set -g fish_user_paths "$BREW_HOME/opt/libressl/bin" "/Users/foz/.bin" $fish_user_paths
 
-set -g -x "CLOUDSDK_PYTHON" "/usr/local/opt/python@3.8/libexec/bin/python"
-source "/usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+set -g -x "CLOUDSDK_PYTHON" "$BREW_HOME/opt/python@3.9/libexec/bin/python"
+source "$BREW_HOME/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
