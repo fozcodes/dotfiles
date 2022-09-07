@@ -8,23 +8,15 @@ local path = util.path
 -- Filetypes supported --
 local efm_filetypes = {
     "elixir", "typescript", "typescriptreact", "javascript", "javascript.jsx", "jsx", "helm.yaml",
-    "yaml", "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql",
-    "terraform"
+    "yaml", "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
-
-local function get_node_command_path(workspace, command)
-    -- Find and use node_modules in workspace directory.
-    for _, pattern in ipairs({'*', '.*'}) do
-        local match = vim.fn.glob(path.join(workspace, pattern, 'package.json'))
-        if match ~= '' then
-            return path.join(path.dirname(match), 'node_modules/.bin', command)
-        end
-    end
-
-    return command
-end
+local eslint_lint_command = {
+    lintCommand = "eslint -f unix --stdin --stdin-filename ${INPUT}",
+    lintStdin = true,
+    lintIgnoreExitCode = true
+}
 
 local function get_python_command_path(workspace, command)
     -- Use activated virtualenv.
@@ -68,31 +60,6 @@ M.setup = function(on_attach)
                 }
             }
 
-            local eslint_commands = {
-                {
-                    lintCommand = get_node_command_path(config.root_dir, 'eslint')
-                        .. " -f unix --stdin --stdin-filename ${INPUT}",
-                    lintStdin = true,
-                    lintIgnoreExitCode = true
-
-                }
-            }
-
-            config.settings.languages.typescript = {
-                table.unpack(eslint_commands), table.unpack(config.settings.languages.typescript)
-            }
-            config.settings.languages.javascript = {
-                table.unpack(config.settings.languages.javascript), table.unpack(eslint_commands)
-            }
-            config.settings.languages.typescriptreact = {
-                table.unpack(config.settings.languages.typescriptreact),
-                table.unpack(eslint_commands)
-            }
-            config.settings.languages.javascriptreact = {
-                table.unpack(config.settings.languages.javascriptreact),
-                table.unpack(eslint_commands)
-            }
-
         end,
         on_attach = function(client, bufnr)
             if vim.bo.filetype == "elixir" then
@@ -109,7 +76,7 @@ M.setup = function(on_attach)
         end,
         filetypes = efm_filetypes,
         settings = {
-            rootMarkers = {"package.json", ".git/"},
+            rootMarkers = {".git/"},
             lintDebounce = "0.3s",
             languages = {
                 elixir = {
@@ -128,10 +95,11 @@ M.setup = function(on_attach)
                     }
                 },
                 -- sql = {{formatCommand = "sql-lint --fix ${INPUT}", formatStdin = true}},
-                javascript = {prettier_format_command},
-                ["javascript.jsx"] = {prettier_format_command},
-                typescriptreact = {prettier_format_command},
-                javascriptreact = {prettier_format_command},
+                typescript = {prettier_format_command, eslint_lint_command},
+                javascript = {prettier_format_command, eslint_lint_command},
+                ["javascript.jsx"] = {prettier_format_command, eslint_lint_command},
+                typescriptreact = {prettier_format_command, eslint_lint_command},
+                javascriptreact = {prettier_format_command, eslint_lint_command},
                 json = {prettier_format_command},
                 ["helm.yaml"] = {},
                 yaml = {prettier_format_command},
@@ -139,8 +107,7 @@ M.setup = function(on_attach)
                 scss = {prettier_format_command},
                 css = {prettier_format_command},
                 graphql = {prettier_format_command},
-                markdown = {prettier_format_command},
-                terraform = {{formatCommand = "terraform fmt -", formatStdin = true}}
+                markdown = {prettier_format_command}
             }
         }
     })
