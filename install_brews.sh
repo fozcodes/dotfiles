@@ -159,9 +159,10 @@ brew install 1password \
  netpbm \
  nettle \
  nghttp2 \
- node \
+ ninja \
  npth \
  oniguruma \
+ openblas \
  openconnect \
  opencore-amr \
  openexr \
@@ -276,7 +277,6 @@ brew install abstract \
  steam \
  sublime-text \
  tableplus \
- vagrant \
  visual-studio-code \
  whatsapp \
  homebrew/cask-drivers/zsa-wally

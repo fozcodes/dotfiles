@@ -1,14 +1,46 @@
 ####### PYTHON #######
+set brew_zlib (brew --prefix zlib)
+set brew_xz (brew --prefix xz)
+set brew_readline (brew --prefix readline)
+set brew_bzip2 (brew --prefix bzip2)
+set brew_openssl (brew --prefix openssl@1.1)
+set brew_libffi (brew --prefix libffi)
+set brew_sqlite (brew --prefix sqlite)
+
+if set -q USE_LEGACY_BREW
+  echo "Setting the LDFLAGS and CPPFLAGS using legacy brew..."
+  set brew_zlib (brow --prefix zlib)
+  set brew_xz (brow --prefix xz)
+  set brew_readline (brow --prefix readline)
+  set brew_bzip2 (brow --prefix bzip2)
+  set brew_openssl (brow --prefix openssl@1.1)
+  set brew_libffi (brow --prefix libffi)
+  set brew_sqlite (brow --prefix sqlite)
+end
 
 #set python pretty print on everywhere... even though it only works sometimes
 set -x TBVACCINE 1
 
-set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/zlib/lib"
-set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/zlib/include"
-set -x LDFLAGS "$LDFLAGS -L/usr/local/opt/sqlite/lib"
-set -x CPPFLAGS "$CPPFLAGS -I/usr/local/opt/sqlite/include"
-set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/zlib/lib/pkgconfig"
-set -x PKG_CONFIG_PATH "$PKG_CONFIG_PATH /usr/local/opt/sqlite/lib/pkgconfig"
+set -x OPENBLAS (brew --prefix openblas)
+
+set -x LDFLAGS "-L$brew_zlib/lib"
+set -x LDFLAGS "-L$brew_xz/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_readline/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_bzip2/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_openssl/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_libffi/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_sqlite/lib $LDFLAGS"
+
+set -x CPPFLAGS "-I$brew_zlib/include \
+-I$brew_xz/include \
+-I$brew_readline/include \
+-I$brew_bzip2/include \
+-I$brew_openssl/include \
+-I$brew_sqlite/include \
+-I$brew_libffi/include"
+
+set -x PKG_CONFIG_PATH "$brew_zlib/lib/pkgconfig $PKG_CONFIG_PATH"
+set -x PKG_CONFIG_PATH "$brew_sqlite/lib/pkgconfig $PKG_CONFIG_PATH"
 
 # search for a activate.fish file UP THE DIRECTORY TREE, starting from the current folder.
 # if found, execute it.

@@ -202,6 +202,7 @@ autocmd BufNewFile,BufRead *.scerb set filetype=scss.erb
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 autocmd BufNewFile,BufRead *.leex set filetype=eelixir
 autocmd BufRead,BufNewFile Appraisals set filetype=ruby
+autocmd BufNewFile,BufRead *.tf set filetype=terraform
 
 " Workaround vim-commentary for Haskell
 autocmd FileType haskell setlocal commentstring=--\ %s

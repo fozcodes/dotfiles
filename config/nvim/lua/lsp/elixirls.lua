@@ -1,6 +1,6 @@
 local nvim_lsp = require("lspconfig")
 
-local path_to_elixirls = vim.fn.expand("~/.lang-servers/elixir-ls/rel/language_server.sh")
+local path_to_elixirls = vim.fn.expand("~/.lang-servers/elixir-ls/release/language_server.sh")
 
 local elixir_on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = true

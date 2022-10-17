@@ -1,2 +1,6 @@
 **/*.private.fish
 **/plug.vim.old
+
+tmux/resurrect/*.txt
+tmux-*.log
+

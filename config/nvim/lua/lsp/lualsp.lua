@@ -10,7 +10,7 @@ local sumneko_binary = ""
 if vim.fn.has("mac") == 1 then
     sumneko_root_path = "/Users/" .. USER .. "/.lang-servers/lua-language-server"
     sumneko_binary = "/Users/" .. USER
-                         .. "/.lang-servers/lua-language-server/bin/macOS/lua-language-server"
+                         .. "/.lang-servers/lua-language-server/bin/lua-language-server"
 elseif vim.fn.has("unix") == 1 then
     sumneko_root_path = "/home/" .. USER .. "/.lang-servers/lua-language-server"
     sumneko_binary = "/home/" .. USER
@@ -25,10 +25,12 @@ M.setup = function(on_attach, capabilities)
         cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
         capabilities = capabilities,
         on_attach = function(client, bufnr)
+            client.resolved_capabilities.document_formatting = false
             on_attach(client, bufnr)
         end,
         settings = {
             Lua = {
+                format = {enable = false},
                 runtime = {
                     -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
                     version = 'LuaJIT',

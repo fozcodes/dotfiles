@@ -8,7 +8,8 @@ local path = util.path
 -- Filetypes supported --
 local efm_filetypes = {
     "elixir", "typescript", "typescriptreact", "javascript", "javascript.jsx", "jsx", "helm.yaml",
-    "yaml", "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql"
+    "yaml", "json", "html", "scss", "css", "markdown", "lua", "graphql", "python", "sql",
+    "terraform"
 }
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
@@ -107,7 +108,8 @@ M.setup = function(on_attach)
                 scss = {prettier_format_command},
                 css = {prettier_format_command},
                 graphql = {prettier_format_command},
-                markdown = {prettier_format_command}
+                markdown = {prettier_format_command},
+                terraform = {{formatCommand = "terraform fmt -", formatStdin = true}}
             }
         }
     })

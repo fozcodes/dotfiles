@@ -7,22 +7,28 @@
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.0
 
 # install ruby
-asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
+asdf plugin add ruby
 
 # install erlang
-asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
+asdf plugin add erlang
 
 # install elixir
-asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
+asdf plugin add elixir
 
 # install node
-asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.github
+asdf plugin add nodejs
 
 # install terraform
-asdf plugin-add terraform https://github.com/asdf-community/asdf-hashicorp.github
+asdf plugin add terraform
 
 # install Lua
-asdf plugin-add lua https://github.com/Stratus3D/asdf-lua.git
+asdf plugin add lua
+
+# install Python
+asdf plugin add python
+
+# install Poetry
+asdf plugin add poetry
 
 
 #install

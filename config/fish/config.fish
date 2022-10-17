@@ -21,6 +21,8 @@ set PATH /usr/local/opt/findutils/libexec/gnubin $PATH
 
 # aliases
 
+alias brow='arch --x86_64 /usr/local/Homebrew/bin/brew'
+
 alias b="bundle"
 alias be="bundle exec"
 alias c="clear"
@@ -28,7 +30,8 @@ alias dkrmall="docker rm (docker ps -a -q)"
 alias gaac="git add .; and git commit"
 alias gitcleanbranches="git branch --merged | grep -v master | xargs git branch -D"
 alias gitreallycleanbranches="git branch | grep -v 'master' | xargs git branch -D"
-alias grb="git rebase -i origin/master"
+alias grb="git rebase -i origin/main"
+alias grbmaster="git rebase -i origin/master"
 alias grbc="git rebase --continue"
 alias grep="grep --color --exclude=\"*/coverage/*\" --exclude=\"*.git/*\""
 alias la="lsd -la"
