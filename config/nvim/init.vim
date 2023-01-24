@@ -55,7 +55,7 @@ Plug 'kristijanhusak/vim-hybrid-material'
 "To get this working you need to install a nerd font or patch an existing font
 "with the nerdfont font-patcher: https://github.com/ryanoasis/nerd-fonts
 "Clone the entire repo to get the script working
-Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
