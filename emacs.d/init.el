@@ -11,6 +11,7 @@
 (custom-theme-set-faces 'user
                         `(org-level-4 ((t (:foreground "sky blue")))))
 
+
 ;; Sensible Defaults
 (load-file "~/.emacs.d/sensible-defaults.el")
 (sensible-defaults/use-all-settings)
