@@ -64,7 +64,7 @@ M.setup = function(on_attach)
         end,
         on_attach = function(client, bufnr)
             if vim.bo.filetype == "elixir" then
-                client.resolved_capabilities.document_formatting = false
+                client.server_capabilities.document_formatting = false
                 vim.api.nvim_command(
                     "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync({}, 1500)")
             else
@@ -95,7 +95,7 @@ M.setup = function(on_attach)
                         formatStdin = true
                     }
                 },
-                -- sql = {{formatCommand = "sql-lint --fix ${INPUT}", formatStdin = true}},
+                sql = {{formatCommand = "sql-formatter-cli -i - ${INPUT}", formatStdin = true}},
                 typescript = {prettier_format_command, eslint_lint_command},
                 javascript = {prettier_format_command, eslint_lint_command},
                 ["javascript.jsx"] = {prettier_format_command, eslint_lint_command},
