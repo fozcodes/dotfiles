@@ -25,7 +25,7 @@ M.setup = function(on_attach, capabilities)
         cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
         capabilities = capabilities,
         on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
+            client.server_capabilities.document_formatting = false
             on_attach(client, bufnr)
         end,
         settings = {

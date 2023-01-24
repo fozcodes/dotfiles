@@ -46,7 +46,7 @@ M.setup = function(on_attach, _)
             log(vim.inspect(config))
         end,
         on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = false
+            client.server_capabilities.document_formatting = false
             on_attach(client, bufnr)
         end,
         filetypes = {"python"},

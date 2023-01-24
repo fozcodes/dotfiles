@@ -6,8 +6,8 @@ M.setup = function(on_attach, capabilities)
     nvim_lsp.gopls.setup {
         cmd = {'gopls'},
         on_attach = function(client, bufnr)
-            client.resolved_capabilities.document_formatting = true
-            vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()]]
+            client.server_capabilities.document_formatting = true
+            vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
             on_attach(client, bufnr)
         end,
         capabilities = capabilities,
