@@ -3,10 +3,11 @@ local tsserver = require("lsp.tsserver")
 local elixir = require("lsp.elixirls")
 local efm = require("lsp.efm")
 local pyright = require("lsp.pyright")
-local pylsp = require("lsp.pylspserver")
+-- local pylsp = require("lsp.pylspserver")
 local vue = require("lsp.vue")
 local lua = require("lsp.lualsp")
 local golang = require("lsp.golang")
+local yaml = require("lsp.yaml")
 
 -- https://neovim.io/doc/user/api.html#nvim_open_win()
 local popup_opts = {border = "rounded", focusable = false, margin = {10, 10, 10, 10}}
@@ -83,7 +84,7 @@ M.setup = function()
         properties = {'documentation', 'detail', 'additionalTextEdits'}
     }
 
-    local with_cmp_capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+    local with_cmp_capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
     tsserver.setup(on_attach, with_cmp_capabilities)
     elixir.setup(on_attach, with_cmp_capabilities)
@@ -93,6 +94,7 @@ M.setup = function()
     vue.setup(on_attach, with_cmp_capabilities)
     lua.setup(on_attach, with_cmp_capabilities)
     golang.setup(on_attach, with_cmp_capabilities)
+    yaml.setup(on_attach, with_cmp_capabilities)
 end
 
 return M
