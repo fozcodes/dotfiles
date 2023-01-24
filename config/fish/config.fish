@@ -28,8 +28,9 @@ alias be="bundle exec"
 alias c="clear"
 alias dkrmall="docker rm (docker ps -a -q)"
 alias gaac="git add .; and git commit"
-alias gitcleanbranches="git branch --merged | grep -v master | xargs git branch -D"
-alias gitreallycleanbranches="git branch | grep -v 'master' | xargs git branch -D"
+alias gitcleanbranchesmaster="git branch --merged | grep -v master | xargs git branch -D"
+alias gitcleanbranches="git branch --merged | grep -v main | xargs git branch -D"
+alias gitreallycleanbranches="git branch | grep -v 'main' | xargs git branch -D"
 alias grb="git rebase -i origin/main"
 alias grbmaster="git rebase -i origin/master"
 alias grbc="git rebase --continue"
@@ -82,6 +83,13 @@ function find_up
     set dir (pwd)
   end
   builtin cd $cwd
+end
+
+function save_your_damn_notes
+  cd ~/Code/notes 
+  git add .
+  git commit -m "autosaving..."
+  git push origin master
 end
 
 set -x FZF_DEFAULT_OPTS "--height 50% --reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'"
