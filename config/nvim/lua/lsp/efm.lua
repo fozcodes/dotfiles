@@ -14,7 +14,7 @@ local efm_filetypes = {
 
 local prettier_format_command = {formatCommand = "prettierd ${INPUT}", formatStdin = true}
 local eslint_lint_command = {
-    lintCommand = "eslint -f unix --stdin --stdin-filename ${INPUT}",
+    lintCommand = "./node_modules/.bin/eslint -f unix --stdin --stdin-filename ${INPUT}",
     lintStdin = true,
     lintIgnoreExitCode = true
 }
