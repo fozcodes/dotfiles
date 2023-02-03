@@ -1,0 +1,5 @@
+.venv/
+
+FontPatcher/src/
+
+**/__pycache__/**/*
