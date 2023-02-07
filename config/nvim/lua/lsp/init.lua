@@ -65,7 +65,7 @@ M.setup = function()
             })
 
         local signs = {
-            Error = " ",
+            Error = "✖ ",
             Warning = " ",
             Warn = " ",
             Hint = " ",
