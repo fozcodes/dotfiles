@@ -117,3 +117,5 @@ set -g fish_user_paths "$BREW_HOME/opt/libressl/bin" "/Users/foz/.bin" $fish_use
 
 set -g -x "CLOUDSDK_PYTHON" "$BREW_HOME/opt/python@3.9/libexec/bin/python"
 source "$BREW_HOME/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.fish.inc"
+
+thefuck --alias | source
