@@ -14,9 +14,15 @@ local popup_opts = {border = "rounded", focusable = false, margin = {10, 10, 10,
 
 _G.global.lsp = {popup_opts = popup_opts}
 
+-- Uncomment the prints and start nvim to find the goddam LSP logfile again. Cause it ain't where you think!
+-- vim.g.lua_lsp_log_file = os.getenv("HOME") .. "/.cache/nvim/lsp.log"
+-- print("THIS IS THE LOG PATH")
+-- print(vim.lsp.get_log_path())
+-- vim.lsp.set_log_level('debug')
+
 local virtual_text_prefix = function(client_name)
     if client_name == "efm" then
-        return "● "
+        return string.gsub("● $name: ", "%$(%w+)", {name = client_name})
     else
         return string.gsub("● $name: ", "%$(%w+)", {name = client_name})
     end
@@ -25,6 +31,10 @@ end
 local M = {}
 M.setup = function()
     local on_attach = function(client, bufnr)
+        if vim.fn.has 'nvim-0.5.1' == 1 then
+            require('vim.lsp.log').set_format_func(vim.inspect)
+        end
+
         -- commands
         u.lua_command("LspFormatting", "vim.lsp.buf.formatting()")
         u.lua_command("LspHover", "vim.lsp.buf.hover()")
@@ -60,7 +70,12 @@ M.setup = function()
             vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
                 underline = true,
                 update_in_insert = false,
-                virtual_text = {spacing = 4, prefix = virtual_text_prefix(client.name)},
+                virtual_text = {
+                    source = true,
+                    spacing = 4
+                    -- prefix = "● "
+                },
+                float = {source = true},
                 severity_sort = true
             })
 
