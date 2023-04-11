@@ -1,8 +1,8 @@
 function assume-aws-role 
   set creds (aws sts assume-role --role-arn $ROLE_ARN  --role-session-name foz-assumed-role)
-  set aws_key_id (echo "$creds" | jq '.Credentials.AccessKeyId')
-  set aws_secret_key (echo "$creds" | jq '.Credentials.SecretAccessKey')
-  set aws_session_token (echo "$creds" | jq '.Credentials.SessionToken')
+  set aws_key_id (echo "$creds" | jq -r '.Credentials.AccessKeyId')
+  set aws_secret_key (echo "$creds" | jq -r '.Credentials.SecretAccessKey')
+  set aws_session_token (echo "$creds" | jq -r '.Credentials.SessionToken')
 
   echo $aws_key_id
   echo $aws_secret_key
