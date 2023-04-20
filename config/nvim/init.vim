@@ -59,6 +59,7 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mbbill/undotree'
 Plug 'mxw/vim-jsx'
+Plug 'mechatroner/rainbow_csv'
 Plug 'nvim-lua/plenary.nvim'
 "Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
