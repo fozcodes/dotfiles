@@ -21,7 +21,7 @@ end
 
 local M = {}
 M.setup = function(on_attach, capabilities)
-    nvim_lsp.sumneko_lua.setup({
+    nvim_lsp.lua_ls.setup({
         cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
         capabilities = capabilities,
         on_attach = function(client, bufnr)
