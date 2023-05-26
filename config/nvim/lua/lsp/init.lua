@@ -31,9 +31,9 @@ end
 local M = {}
 M.setup = function()
     local on_attach = function(client, bufnr)
-        if vim.fn.has 'nvim-0.5.1' == 1 then
-            require('vim.lsp.log').set_format_func(vim.inspect)
-        end
+        -- if vim.fn.has 'nvim-0.5.1' == 1 then
+        -- require('vim.lsp.log').set_format_func(vim.inspect)
+        -- end
 
         -- commands
         u.lua_command("LspFormatting", "vim.lsp.buf.formatting()")
