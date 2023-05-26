@@ -93,7 +93,7 @@ M.setup = function(on_attach)
                         formatStdin = true
                     }
                 },
-                sql = {{formatCommand = "sql-formatter-cli -i - ${INPUT}", formatStdin = true}},
+                sql = {{formatCommand = "sql-formatter --config ~/.sql-formatter.config.json", formatStdin = true}},
                 typescript = {prettier_format_command, eslint_lint_command},
                 javascript = {prettier_format_command, eslint_lint_command},
                 ["javascript.jsx"] = {prettier_format_command, eslint_lint_command},
