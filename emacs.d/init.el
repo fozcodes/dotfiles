@@ -11,6 +11,7 @@
 (custom-theme-set-faces 'user
                         `(org-level-4 ((t (:foreground "sky blue")))))
 
+;(load-file "~/.emacs.d/evil-easymotion.el")
 
 ;; Sensible Defaults
 (load-file "~/.emacs.d/sensible-defaults.el")
@@ -56,6 +57,11 @@
           (insert initial-key))))
 
     (define-key evil-insert-state-map (kbd "j") 'my-jk)))
+
+(use-package evil-easymotion 
+  :ensure t
+  :init
+  (evilem-default-keybindings "SPC"))
 
 (use-package linum-relative
   :ensure t
