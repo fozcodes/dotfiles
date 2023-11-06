@@ -1,5 +1,6 @@
 {
   "useTabs": false,
   "keywordCase": "upper",
-  "linesBetweenQueries": 2
+  "linesBetweenQueries": 2,
+  "dialect": "snowflake"
 }
