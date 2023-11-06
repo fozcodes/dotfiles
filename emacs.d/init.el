@@ -33,6 +33,7 @@
   :ensure t
   :init
   (setq evil-want-C-i-jump nil)
+  (setq evil-undo-system 'undo-redo)
   (progn
     ;; if we don't have this evil overwrites the cursor color
     (setq evil-default-cursor t)
