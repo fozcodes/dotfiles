@@ -110,6 +110,19 @@
 (setq-default indent-tabs-mode nil)
 
 ;; ORG mode stuff
+;; Fix the clock keys
+(defun my/org-clocktable-update ()
+  "Update the org clocktable if inside a clocktable block, otherwise run `org-ctrl-c-ctrl-c'."
+  (interactive)
+  (if (save-excursion
+        (beginning-of-line)
+        (search-forward-regexp "^#\\+BEGIN: clocktable" (point-at-eol) t))
+      (org-dblock-update)
+    (org-ctrl-c-ctrl-c)))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-c") 'my/org-clocktable-update)))
+
 (setq org-todo-keywords
       (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
               (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
