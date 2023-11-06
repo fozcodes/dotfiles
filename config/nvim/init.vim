@@ -164,6 +164,16 @@ let g:mapleader=','
 noremap <leader>bg :call ToggleBG()<CR>
 nnoremap <leader>rtw :%s/\s\+$//e<CR>
 nmap <leader>pry orequire IEx; IEx.pry<esc>
+
+"Quickfix Shortcuts
+augroup QuickfixMappings
+  autocmd!
+  autocmd FileType qf nnoremap <buffer> <Leader>q :cclose<CR>
+  autocmd FileType qf nnoremap <buffer> <leader>n :cnext<CR>
+  autocmd FileType qf nnoremap <buffer> <leader>p :cprevious<CR>
+  autocmd FileType qf nnoremap <buffer> <leader>f :cfirst<CR>
+  autocmd FileType qf nnoremap <buffer> <leader>l :clast<CR>
+augroup END
 " }}}
 " Folding {{{
 set foldenable
