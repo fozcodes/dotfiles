@@ -72,7 +72,7 @@ function find_up
   set -l cwd (pwd)
   set -l dir (pwd)
 
-  while not test "$dir" = '/'
+  while not test "$dir" != '/'
     set version_file "$dir/$filename"
 
     if test -f "$version_file"
