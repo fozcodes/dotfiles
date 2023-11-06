@@ -6,6 +6,7 @@ set brew_bzip2 (brew --prefix bzip2)
 set brew_openssl (brew --prefix openssl@1.1)
 set brew_libffi (brew --prefix libffi)
 set brew_sqlite (brew --prefix sqlite)
+set brew_libomp (brew --prefix libomp)
 
 if set -q USE_LEGACY_BREW
   echo "Setting the LDFLAGS and CPPFLAGS using legacy brew..."
@@ -16,6 +17,7 @@ if set -q USE_LEGACY_BREW
   set brew_openssl (brow --prefix openssl@1.1)
   set brew_libffi (brow --prefix libffi)
   set brew_sqlite (brow --prefix sqlite)
+  set brew_libomp (brow --prefix libomp)
 end
 
 #set python pretty print on everywhere... even though it only works sometimes
@@ -30,6 +32,7 @@ set -x LDFLAGS "-L$brew_bzip2/lib $LDFLAGS"
 set -x LDFLAGS "-L$brew_openssl/lib $LDFLAGS"
 set -x LDFLAGS "-L$brew_libffi/lib $LDFLAGS"
 set -x LDFLAGS "-L$brew_sqlite/lib $LDFLAGS"
+set -x LDFLAGS "-L$brew_libomp/lib $LDFLAGS"
 
 set -x CPPFLAGS "-I$brew_zlib/include \
 -I$brew_xz/include \
@@ -37,6 +40,7 @@ set -x CPPFLAGS "-I$brew_zlib/include \
 -I$brew_bzip2/include \
 -I$brew_openssl/include \
 -I$brew_sqlite/include \
+-I$brew_libomp/include \
 -I$brew_libffi/include"
 
 set -x PKG_CONFIG_PATH "$brew_zlib/lib/pkgconfig $PKG_CONFIG_PATH"
