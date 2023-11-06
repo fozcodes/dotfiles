@@ -63,8 +63,9 @@ M.setup = function(on_attach)
 
         end,
         on_attach = function(client, bufnr)
-            if vim.bo.filetype == "elixir" or vim.bo.filetype == "lua" then
+            if vim.bo.filetype == "lua" then
                 client.server_capabilities.document_formatting = false
+
                 vim.api.nvim_command(
                     "au BufWritePre <buffer> lua vim.lsp.buf.formatting_seq_sync({}, 1500)")
             else
