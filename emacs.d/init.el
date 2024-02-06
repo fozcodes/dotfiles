@@ -18,6 +18,9 @@
 (sensible-defaults/use-all-settings)
 (sensible-defaults/use-all-keybindings)
 
+;; Let me have my special characters with right option key
+(setq ns-alternate-modifier 'meta)
+(setq ns-right-alternate-modifier 'none)
 ;; Evil
 ;(add-to-list 'load-path "~/.emacs.d/evil")
 ;(require 'evil)
