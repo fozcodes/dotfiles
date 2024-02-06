@@ -70,7 +70,7 @@ Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'triglav/vim-visual-increment' " This guy lets you increment numbers under visual highlight
+Plug 'triglav/vim-visual-increment' " This guy lets you increment numbers under visual highlight <C-V> to highlight, then <C-A> to increment
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0ng/vim-hybrid'
@@ -81,6 +81,7 @@ Plug 'folke/trouble.nvim'
 Plug 'navarasu/onedark.nvim'
 Plug 'marko-cerovac/material.nvim'
 Plug 'EdenEast/nightfox.nvim'
+Plug 'pinecoders/vim-pine-script'
 
 " Initialize plugin system
 call plug#end()
