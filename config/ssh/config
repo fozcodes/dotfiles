@@ -6,56 +6,6 @@ Host *
   UseKeychain yes
   IdentityFile ~/.ssh/id_rsa
 
-Host known_bastion_proxy
-  HostName 10.242.180.236
-  IdentityFile ~/.ssh/id_rsa
-  User ec2-user
-
-Host vantage_db_dev
-  ProxyJump known_bastion_proxy
-  HostName 18.211.48.52
-  LocalForward 54320 db-dev-vantage-postgres-aurora.cluster-crjxrfahfpds.us-east-1.rds.amazonaws.com:5432
-  User ec2-user
-  IdentityFile ~/.ssh/id_rsa
-
-Host vantage_db_prod
-  ProxyJump known_bastion_proxy
-  HostName 18.211.48.52
-  LocalForward 54329 db-prod-vantage-postgres-aurora.cluster-ro-c6ojq8jtw62v.us-east-1.rds.amazonaws.com:5432
-  #LocalForward 54329 db-prod-vantage-postgres-aurora.cluster-c6ojq8jtw62v.us-east-1.rds.amazonaws.com:5432
-  User ec2-user
-  IdentityFile ~/.ssh/id_rsa
-
-Host vantage_redshift_dev
-  ProxyJump known_bastion_proxy
-  HostName 18.211.48.52
-  LocalForward 54390 redshift.private.dev-vantage.schireson.com:5439
-  User ec2-user
-  IdentityFile ~/.ssh/id_rsa
-
-Host vantage_redshift_prod
-  ProxyJump known_bastion_proxy
-  HostName 18.211.48.52
-  LocalForward 54399 redshift.private.vantage.schireson.com:5439
-  User ec2-user
-  IdentityFile ~/.ssh/id_rsa
-
-Host vantage_data_ec2
-  HostName 10.242.180.184
-  User ubuntu
-  IdentityFile ~/.ssh/vantage.pem
-
-Host comscore_api_dev
-  ProxyJump vantage_data_ec2
-  HostName 10.242.180.184
-  LocalForward 8091 rap-dev.rentrak.com:80
-  User ubuntu
-  IdentityFile ~/.ssh/vantage.pem
-
-Host git-codecommit.*.amazonaws.com
-  User APKAWCM7ZV3FAKJEXLRS
-  IdentityFile ~/.ssh/id_rsa
-
 Host codeguy_minecraft
   HostName 15.222.61.51
   IdentityFile ~/.ssh/lightsaildefault-codeguy-ca-central-1.pem
